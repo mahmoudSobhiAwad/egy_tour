@@ -1,25 +1,14 @@
 import 'package:egy_tour/core/utils/theme/font_styles.dart';
-import 'package:egy_tour/features/home/data/models/place_model.dart';
+import 'package:egy_tour/features/governments/data/models/land_mark_model.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/constant_variables.dart';
+import '../../../features/sign_up/data/models/user_model.dart';
 import '../theme/app_colors.dart';
 
 class PlaceCard extends StatefulWidget {
-  final String name;
-
-  final String location;
-
-  final String imageUrl;
-
-  bool isFavorite;
-
-  PlaceCard(
-      {super.key,
-      required this.name,
-      required this.location,
-      required this.imageUrl,
-      required this.isFavorite});
+  final LandmarkModel landmarkModel;
+  final User? user;
+  const PlaceCard({super.key, required this.landmarkModel, required this.user});
 
   @override
   State<PlaceCard> createState() => _PlaceCardState();
@@ -56,7 +45,7 @@ class _PlaceCardState extends State<PlaceCard> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   child: Image.asset(
-                    widget.imageUrl,
+                    widget.landmarkModel.imageUrl,
                     width: 160,
                     height: 126,
                     fit: BoxFit.fitWidth,
@@ -64,10 +53,10 @@ class _PlaceCardState extends State<PlaceCard> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0),
+            FittedBox(
               child: Text(
-                widget.name,
+                textAlign: TextAlign.center,
+                widget.landmarkModel.title,
                 style: AppTextStyles.regular16,
               ),
             ),
@@ -75,7 +64,7 @@ class _PlaceCardState extends State<PlaceCard> {
               height: 5,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10.0),
+              padding: const EdgeInsets.only(left: 5.0),
               child: Row(
                 children: [
                   Icon(
@@ -83,7 +72,7 @@ class _PlaceCardState extends State<PlaceCard> {
                     color: AppColors.darkGrey,
                   ),
                   Text(
-                    widget.location,
+                    widget.landmarkModel.governName,
                     style: TextStyle(
                         color: AppColors.darkGrey,
                         fontWeight: FontWeight.w400,
@@ -92,25 +81,17 @@ class _PlaceCardState extends State<PlaceCard> {
                   Spacer(),
                   IconButton(
                     onPressed: () {
-                      widget.isFavorite = !widget.isFavorite;
+                      widget.landmarkModel.isFavorite =
+                          !widget.landmarkModel.isFavorite;
+                      widget.landmarkModel.isFavorite
+                          ? widget.user?.favorites
+                              .add(widget.landmarkModel.uniqueId)
+                          : widget.user?.favorites
+                              .remove(widget.landmarkModel.uniqueId);
+
                       setState(() {});
-                      widget.isFavorite
-                          ? favorites.remove(
-                              Place(
-                                  name: widget.name,
-                                  location: widget.location,
-                                  imageUrl: widget.imageUrl,
-                                  isFavorite: widget.isFavorite),
-                            )
-                          : favorites.add(
-                              Place(
-                                  name: widget.name,
-                                  location: widget.location,
-                                  imageUrl: widget.imageUrl,
-                                  isFavorite: widget.isFavorite),
-                            );
                     },
-                    icon: widget.isFavorite
+                    icon: widget.landmarkModel.isFavorite
                         ? Icon(
                             Icons.favorite,
                             color: Colors.red,

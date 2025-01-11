@@ -1,34 +1,37 @@
 import 'package:egy_tour/core/utils/theme/app_colors.dart';
 import 'package:egy_tour/core/utils/theme/font_styles.dart';
+import 'package:egy_tour/core/utils/widget/custom_box_shadow.dart';
+import 'package:egy_tour/core/utils/widget/custom_outline_borders.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  const CustomTextFormField({
-    super.key,
-    this.maxLine,
-    this.validator,
-    this.controller,
-    this.enableFocusBorder = true,
-    this.textInputType,
-    this.suffixText,
-    this.suffixTextStyle,
-    this.labelWidget,
-    this.borderColor,
-    this.borderRadius,
-    this.borderWidth,
-    this.prefixWidget,
-    this.suffixWidget,
-    this.textStyle,
-    this.enableFill = true,
-    this.fillColor,
-    this.label,
-    this.isObeseureText = false,
-    this.labelStyle,
-    this.enabled = true, // Add this line to control editability
-    this.shadowColor, // Add shadow color
-    this.shadowBlurRadius = 8.0, // Add shadow blur radius
-    this.shadowOffset = const Offset(0, 8),
-  });
+  const CustomTextFormField(
+      {super.key,
+      this.maxLine,
+      this.validator,
+      this.controller,
+      this.enableFocusBorder = true,
+      this.textInputType,
+      this.suffixText,
+      this.suffixTextStyle,
+      this.labelWidget,
+      this.borderColor,
+      this.borderRadius,
+      this.borderWidth,
+      this.prefixWidget,
+      this.suffixWidget,
+      this.textStyle,
+      this.enableFill = true,
+      this.fillColor,
+      this.label,
+      this.isObeseureText = false,
+      this.labelStyle,
+      this.focusBorderColor,
+      this.floatingLabelBehavior,
+      this.focusNode,
+      this.textInputAction,
+      this.onFieldSubmitted,
+      this.enabled = true});
   final Widget? labelWidget;
   final double? borderRadius;
   final String? Function(String? value)? validator;
@@ -48,36 +51,35 @@ class CustomTextFormField extends StatelessWidget {
   final String? label;
   final TextStyle? labelStyle;
   final bool isObeseureText;
+  final TextInputAction? textInputAction;
+  final FloatingLabelBehavior? floatingLabelBehavior;
+  final Color? focusBorderColor;
+  final FocusNode? focusNode;
+  final void Function(String?)? onFieldSubmitted;
   final bool enabled; // Add this line to control editability
-  final Color? shadowColor; // Add shadow color
-  final double shadowBlurRadius; // Add shadow blur radius
-  final Offset shadowOffset; // Add shadow offset
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(borderRadius ?? 10),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.black37.withValues(alpha: 0.1),
-            blurRadius: 20,
-            offset: Offset(0, 8),
-          )
-        ],
+        boxShadow: [customBoxShadow()],
       ),
       child: TextFormField(
         enabled: enabled,
         obscureText: isObeseureText,
         validator: validator,
+        focusNode: focusNode,
+        textInputAction: textInputAction,
         controller: controller,
         maxLines: maxLine,
         keyboardType: textInputType,
         cursorColor: Colors.black,
         style: textStyle,
+        onFieldSubmitted: onFieldSubmitted,
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: labelStyle,
+          labelStyle: labelStyle ??
+              AppTextStyles.regular15.copyWith(color: AppColors.lightGrey8),
           errorStyle: AppTextStyles.regular12,
           focusColor: Colors.black,
           suffixIcon: suffixWidget,
@@ -87,33 +89,13 @@ class CustomTextFormField extends StatelessWidget {
           filled: enableFill,
           prefixIcon: prefixWidget,
           label: labelWidget,
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(borderRadius ?? 10),
-              borderSide: BorderSide(
-                color: borderColor ?? AppColors.lightGrey1,
-                width: borderWidth ?? 2,
-              )),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(borderRadius ?? 10),
-              borderSide: BorderSide(
-                color: borderColor ?? AppColors.lightGrey1,
-                width: borderWidth ?? 2,
-              )),
-          disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(borderRadius ?? 10),
-              borderSide: BorderSide(
-                color: borderColor ?? AppColors.lightGrey1,
-                width: borderWidth ?? 2,
-              )),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(borderRadius ?? 10),
-            borderSide: enableFocusBorder
-                ? const BorderSide(
-                    color: AppColors.black37,
-                    width: 2,
-                  )
-                : BorderSide.none,
+          floatingLabelBehavior:
+              floatingLabelBehavior ?? FloatingLabelBehavior.never,
+          disabledBorder: customOutLineBorders(),
+          border: customOutLineBorders(),
+          enabledBorder: customOutLineBorders(),
+          focusedBorder: customOutLineBorders(
+            borderColor: enableFocusBorder ? AppColors.black37 : null,
           ),
           hoverColor: Colors.white,
         ),
