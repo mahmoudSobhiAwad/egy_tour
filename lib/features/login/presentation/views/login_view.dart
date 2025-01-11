@@ -1,8 +1,8 @@
-import "package:easy_localization/easy_localization.dart";
-import "package:flutter/material.dart";
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
-import 'package:textfield_shadow/custom_textfield.dart';
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:textfield_shadow/custom_textfield.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ]),
                 ),
                 const SizedBox(
-                  width: 150,
+                  width: 147,
                 ),
                 IconButton(
 
@@ -266,10 +266,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                   .showSnackBar(snackBar);
                             }
                           },
-                          child: Text(
-                            tr('log'),
-                            style: const TextStyle(fontSize: 15),
-                          ))),
+                          child: Text(tr('log'),
+                              style: const TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                              )))),
                 ),
                 // const SizedBox(
                 //   height: 20,
