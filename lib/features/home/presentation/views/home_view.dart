@@ -33,13 +33,13 @@ class _HomeViewState extends State<HomeView> {
                 Tab(
                   child: Text(
                     "home.suggestedPlaces".tr(),
-                    style: AppTextStyles.regular16,
+                    style: AppTextStyles.regular14,
                   ),
                 ),
                 Tab(
                   child: Text(
                     "home.popularPlaces".tr(),
-                    style: AppTextStyles.regular16,
+                    style: AppTextStyles.regular14,
                   ),
                 )
               ],
@@ -53,7 +53,7 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, childAspectRatio: 150 / 190),
+                      crossAxisCount: 2, childAspectRatio: 145 / 190),
                   itemCount: suggestedLandmarksList.length,
                   itemBuilder: (context, index) {
                     return PlaceCard(

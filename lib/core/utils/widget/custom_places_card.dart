@@ -18,7 +18,7 @@ class _PlaceCardState extends State<PlaceCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(6.0),
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.lightGrey2,
@@ -53,11 +53,14 @@ class _PlaceCardState extends State<PlaceCard> {
                 ),
               ),
             ),
-            FittedBox(
-              child: Text(
-                textAlign: TextAlign.center,
-                widget.landmarkModel.title,
-                style: AppTextStyles.regular16,
+            Padding(
+              padding: const EdgeInsets.only(left: 4.0),
+              child: FittedBox(
+                child: Text(
+                  textAlign: TextAlign.center,
+                  widget.landmarkModel.title,
+                  style: AppTextStyles.regular16,
+                ),
               ),
             ),
             SizedBox(
