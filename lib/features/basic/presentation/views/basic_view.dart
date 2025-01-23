@@ -5,8 +5,6 @@ import 'package:egy_tour/core/utils/theme/font_styles.dart';
 import 'package:egy_tour/features/basic/presentation/views/widgets/custom_basic_drawer.dart';
 import 'package:egy_tour/features/basic/presentation/views/widgets/custom_bottom_navigation_bar.dart';
 import 'package:egy_tour/features/basic/presentation/views/widgets/show_dialog_exist.dart';
-import 'package:egy_tour/features/governments/presentation/manager/bloc/places/places_bloc.dart';
-import 'package:egy_tour/features/governments/presentation/manager/bloc/places/places_event.dart';
 import 'package:egy_tour/features/governments/presentation/views/government_view.dart';
 import 'package:egy_tour/features/home/data/repos/home_repo_imp.dart';
 import 'package:egy_tour/features/home/presentation/views/home_view.dart';
@@ -15,7 +13,6 @@ import 'package:egy_tour/features/profile/presentation/views/profile_view.dart';
 import 'package:egy_tour/features/sign_up/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../favourites/presentation/views/favourites_view.dart';
 
 class BasicView extends StatefulWidget {
@@ -102,10 +99,7 @@ class _BasicViewState extends State<BasicView> {
                       ),
                     ),
                     Expanded(
-                      child: BlocProvider(
-                        create: (context) => PlacesBloc()..add(LoadPlaces()),
-                        child: GovernmentView(),
-                      )
+                      child: GovernmentView(),
                     ),
                     Expanded(
                       child: FavouritesView(
