@@ -1,0 +1,21 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+
+part 'home_event.dart';
+part 'home_state.dart';
+
+class HomeBloc extends Bloc<HomeEvent, HomeState> {
+  HomeBloc() : super(HomeInitial()) {
+    on<FavoritedEvent>(
+      (event, emit) {
+        emit(Favorited());
+      },
+    );
+    on<UnFavoritedEvent>(
+      (event, emit) {
+        emit(UnFavorited());
+      },
+    );
+  }
+}
