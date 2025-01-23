@@ -1,7 +1,9 @@
 import 'package:egy_tour/core/utils/functions/shared_pref_helper.dart';
+import 'package:egy_tour/features/basic/presentation/manager/basic_cubit.dart';
 import 'package:egy_tour/features/basic/presentation/views/basic_view.dart';
 import 'package:egy_tour/features/login/presentation/views/login_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CheckingLoginedUser extends StatelessWidget {
   const CheckingLoginedUser({super.key});
@@ -24,8 +26,11 @@ class CheckingLoginedUser extends StatelessWidget {
         }
 
         if (snapshot.hasData && snapshot.data != null && snapshot.data != '') {
-          return BasicView(
-            email: snapshot.data!,
+          return BlocProvider(
+            create: (context) => BasicCubit(),
+            child: BasicView(
+              email: snapshot.data!,
+            ),
           );
         } else {
           return const LoginView();
