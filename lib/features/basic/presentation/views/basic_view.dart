@@ -53,6 +53,16 @@ class _BasicViewState extends State<BasicView> {
     setState(() {});
   }
 
+  void _handleUserUpdate(User updatedUser) {
+    setState(() {
+      userModel = updatedUser;
+    });
+    // Force rebuild drawer by calling setState
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -68,81 +78,84 @@ class _BasicViewState extends State<BasicView> {
           SystemNavigator.pop();
         }
       },
-      child: StreamBuilder<Object>(
-        stream: null,
-        builder: (context, snapshot) {
-          return BlocBuilder<BasicCubit, BasicState>(
-            builder: (context, state) {
-              return Scaffold(
-                backgroundColor: AppColors.white,
-                drawer: selectedIndex == 3
-                    ? null
-                    : CustomBasicDrawer(
-                        userName: userModel?.userName ?? "",
-                        logout: (bool value) async {
-                          if (value) {
-                            await homeRepoImp.logOut().then((value) {
-                              if (context.mounted) {
-                                context.pushReplacement(LoginView());
-                              }
-                            });
-                          }
-                        },
+      child: BlocProvider(
+        create: (context) => BasicCubit(),
+        child: BlocBuilder<BasicCubit, BasicState>(
+          builder: (context, state) {
+            return Scaffold(
+              backgroundColor: AppColors.white,
+              drawer: selectedIndex == 3
+                  ? null
+                  : CustomBasicDrawer(
+                      userName: userModel?.userName ?? "",
+                      logout: (bool value) async {
+                        if (value) {
+                          await homeRepoImp.logOut().then((value) {
+                            if (context.mounted) {
+                              context.pushReplacement(LoginView());
+                            }
+                          });
+                        }
+                      },
+                    ),
+              appBar: selectedIndex == 3
+                  ? null
+                  : AppBar(
+                      backgroundColor: AppColors.white,
+                      title: Text(
+                        "home.app_name".tr(),
+                        style: AppTextStyles.bold36,
                       ),
-                appBar: selectedIndex == 3
-                    ? null
-                    : AppBar(
-                        backgroundColor: AppColors.white,
-                        title: Text(
-                          "home.app_name".tr(),
-                          style: AppTextStyles.bold36,
-                        ),
-                      ),
-                body: isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : Column(
-                        children: [
-                          [
-                            Expanded(
-                              child: BlocProvider(
-                                create: (context) => HomeBloc(),
-                                child: HomeView(
-                                  user: userModel,
-                                ),
+                    ),
+              body: isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : Column(
+                      children: [
+                        [
+                          Expanded(
+                            child: BlocProvider(
+                              create: (context) => HomeBloc(),
+                              child: HomeView(
+                                user: userModel,
                               ),
-                            ),
-                            const Expanded(
-                              child: GovernmentView(),
-                            ),
-                            Expanded(
-                              child: BlocProvider(
-                                create: (context) => HomeBloc(),
-                                child: FavouritesView(
-                                  user: userModel,
-                                ),
-                              ),
-                            ),
-                            const Expanded(
-                              child: ProfileScreen(),
-                            ),
-                          ][selectedIndex],
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: CustomBottomNavigationBar(
-                              changeScreen: (index) {
-                                setState(() {
-                                  selectedIndex = index;
-                                });
-                              },
-                              selectedIndex: selectedIndex,
                             ),
                           ),
-                        ],
-                      ),
-              );
-            },
-          );
-        },
+                          const Expanded(
+                            child: GovernmentView(),
+                          ),
+                          Expanded(
+                            child: BlocProvider(
+                              create: (context) => HomeBloc(),
+                              child: FavouritesView(
+                                user: userModel,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: userModel != null 
+                              ? ProfileScreen(
+                                  user: userModel!,
+                                  onUserUpdated: _handleUserUpdate,
+                                )
+                              : const Center(child: Text('Loading user data...')),
+                          ),
+                        ][selectedIndex],
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: CustomBottomNavigationBar(
+                            changeScreen: (index) {
+                              setState(() {
+                                selectedIndex = index;
+                              });
+                            },
+                            selectedIndex: selectedIndex,
+                          ),
+                        ),
+                      ],
+                    ),
+            );
+          },
+        ),
       ),
     );
   }

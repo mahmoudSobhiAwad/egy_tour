@@ -5,27 +5,34 @@ class Service<T> {
   Service({required this.boxName});
   Future<Box<T>> get _box async => await Hive.openBox<T>(boxName);
 
-//create
+  //create
   Future<void> addPerson(T model) async {
     var box = await _box;
     await box.add(model);
   }
 
-//read
+  //read
   Future<List<T>> getAllPerson() async {
     var box = await _box;
     return box.values.toList();
   }
 
-//update
+
+  //update
   Future<void> updateDeck(int index, T model) async {
     var box = await _box;
     await box.putAt(index, model);
   }
 
-//delete
+  //delete
   Future<void> deletePerson(int index) async {
     var box = await _box;
     await box.deleteAt(index);
+  }
+
+  // Clear all data
+  Future<void> clearAll() async {
+    var box = await _box;
+    await box.clear();
   }
 }
