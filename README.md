@@ -55,11 +55,12 @@ all managers are made using bloc pattern
 
 
 ### Basic Managers: 
-
-
+1. #### States: 
+2. #### Events: 
 
 ### Home Managers: 
-
+1. #### States:
+2. #### Events:
 
 
 
