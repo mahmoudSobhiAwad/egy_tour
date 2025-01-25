@@ -25,6 +25,10 @@ class Service<T> {
     await box.putAt(index, model);
   }
 
+ Future<void> updateDeck(int index, T model) async {
+    var box = await _box;
+    await box.putAt(index, model);
+  }
   //delete
   Future<void> deletePerson(int index) async {
     var box = await _box;

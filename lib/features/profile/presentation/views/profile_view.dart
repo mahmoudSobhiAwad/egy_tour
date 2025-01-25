@@ -1,12 +1,12 @@
 import 'package:egy_tour/core/utils/extensions/media_query.dart';
 import 'package:egy_tour/core/utils/theme/app_colors.dart';
+import 'package:egy_tour/features/auth/data/models/user_model.dart';
 import 'package:egy_tour/features/profile/data/repos/profile_repo_imp.dart';
 import 'package:egy_tour/features/profile/presentation/manager/profile_bloc.dart';
 import 'package:egy_tour/features/profile/presentation/manager/profile_events.dart';
 import 'package:egy_tour/features/profile/presentation/manager/profile_states.dart';
 import 'package:egy_tour/features/profile/presentation/views/widgets/custom_clip_path.dart';
 import 'package:egy_tour/features/profile/presentation/views/widgets/profile_fields.dart';
-import 'package:egy_tour/features/sign_up/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -69,7 +69,7 @@ class _ProfileContentState extends State<ProfileContent> {
 
   void _initializeControllers() {
     if (widget.user != null) {
-      _nameController.text = widget.user!.userName;
+      _nameController.text = widget.user!.userName!;
       _emailController.text = widget.user!.email;
       _phoneController.text = widget.user!.phoneNumber ?? '';
       _passwordController.text = widget.user!.password;

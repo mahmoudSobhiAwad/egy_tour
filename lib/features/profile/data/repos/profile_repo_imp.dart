@@ -1,7 +1,7 @@
 import 'package:egy_tour/core/utils/constants/constant_variables.dart';
 import 'package:egy_tour/core/utils/functions/hive_services.dart';
+import 'package:egy_tour/features/auth/data/models/user_model.dart';
 import 'package:egy_tour/features/profile/data/repos/profile_repo.dart';
-import 'package:egy_tour/features/sign_up/data/models/user_model.dart';
 
 class ProfileRepoImp implements ProfileRepo {
   final Service<User> _hiveService = Service<User>(boxName: userBox);

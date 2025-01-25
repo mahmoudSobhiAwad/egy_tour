@@ -40,7 +40,6 @@ class FavouritesRepoImp implements FavouritesRepo {
 
       return left(true);
     } catch (e) {
-      print(e);
       return right(e.toString());
     }
   }

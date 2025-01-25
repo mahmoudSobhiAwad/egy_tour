@@ -1,6 +1,6 @@
+import 'package:egy_tour/features/auth/data/models/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:egy_tour/features/profile/data/repos/profile_repo.dart';
-import 'package:egy_tour/features/sign_up/data/models/user_model.dart';
 import 'profile_events.dart';
 import 'profile_states.dart';
 

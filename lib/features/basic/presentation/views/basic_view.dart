@@ -92,8 +92,10 @@ class _BasicViewState extends State<BasicView> {
                       user: widget.user,
                     ),
                   ),
-                  const Expanded(
-                    child: ProfileScreen(),
+                  Expanded(
+                    child: ProfileScreen(
+                      user: widget.user,
+                    ),
                   ),
                 ][selectedIndex],
                 Align(
