@@ -3,21 +3,19 @@ import 'package:egy_tour/core/utils/extensions/navigation.dart';
 import 'package:egy_tour/core/utils/theme/app_colors.dart';
 import 'package:egy_tour/core/utils/theme/font_styles.dart';
 import 'package:egy_tour/features/governments/data/models/government_model.dart';
+import 'package:egy_tour/features/governments/presentation/manager/bloc/places/places_bloc.dart';
 import 'package:egy_tour/features/governments/presentation/views/lanmarks_view.dart';
 import 'package:flutter/material.dart';
 
-class GovernmentCard extends StatefulWidget {
+class GovernmentCard extends StatelessWidget {
   const GovernmentCard({
     super.key,
     required this.governModel,
+     required this.placesBloc,
   });
   final GovernmentModel governModel;
+  final PlacesBloc placesBloc;
 
-  @override
-  State<GovernmentCard> createState() => _GovernmentCardState();
-}
-
-class _GovernmentCardState extends State<GovernmentCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -33,7 +31,7 @@ class _GovernmentCardState extends State<GovernmentCard> {
       child: InkWell(
         splashColor: AppColors.lightGrey1,
         onTap: () {
-          context.push(LandmarkView(governmentId: widget.governModel.governId));
+          context.push(LandmarkView(bloc:placesBloc ,governmentId: governModel.governId));
         },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(context.screenWidth * 0.05),
@@ -41,7 +39,7 @@ class _GovernmentCardState extends State<GovernmentCard> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Image.asset(
-                widget.governModel.imageUrl,
+                governModel.imageUrl,
                 height: context.screenHeight * 0.25,
                 fit: BoxFit.cover,
               ),
@@ -54,13 +52,13 @@ class _GovernmentCardState extends State<GovernmentCard> {
                       children: [
                         Icon(Icons.location_pin, color: AppColors.grey21),
                         SizedBox(width: 8),
-                        Text(widget.governModel.name,
+                        Text(governModel.name,
                             style: AppTextStyles.bold18
                                 .copyWith(color: AppColors.black37)),
                       ],
                     ),
                     SizedBox(height: 8),
-                    Text(widget.governModel.description,
+                    Text(governModel.description,
                         style: AppTextStyles.regular16
                             .copyWith(color: AppColors.darkGrey)),
                   ],

@@ -8,9 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LandmarkView extends StatefulWidget {
-  const LandmarkView({super.key, required this.governmentId});
+  const LandmarkView({super.key, required this.governmentId, required this.bloc});
 
   final String governmentId;
+  final PlacesBloc bloc;
 
   @override
   State<LandmarkView> createState() => _LandmarkViewState();
@@ -26,6 +27,7 @@ class _LandmarkViewState extends State<LandmarkView> {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: BlocBuilder<PlacesBloc, PlacesState>(
+            bloc:widget.bloc,
               builder: (context, state) {
                 if (state is PlacesLoading) {
                   return Center(
