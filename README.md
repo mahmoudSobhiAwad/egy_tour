@@ -53,27 +53,44 @@ all managers are made using bloc pattern
    * ChangeObsecureTextEvent - this event occurs when the user toggles the visibility of the password field in the login and sign-up screens
    * ChangePickedCountryEvent - this event occurs when the user changes the selected country in the phone number field in the sign-up screen
 
-
-
-### Basic Managers: 
-1. #### States: 
-2. #### Events: 
-
+   
 ### Home Managers: 
 1. #### States:
+   * HomeInitial - initial state
+   * ComparingBetweenLoadingListState - compares all places with th e list of favorites and marks the ones found as favorites
+   * ToggleFavoritedState - toggles the the item to make it a favorite or remove it from favorites
+   * ComparingBetweenListState - the state of success after comparing all places with the list of favorites
+   * ComparingBetweenListFailureState - the state of failure after or during comparing all places with the list of favorites
+   * SuccessToggleState - the state of success after toggling the item to make it a favorite or remove it from favorites
+   * FailureToggleState - the state of failure in toggling the item to make it a favorite or remove it from favorites
+ 
 2. #### Events:
+   * ToggleItemInFavouriteEvent - occurs after the user presses the favorite button on a place
+   * LoadAllPlacesDataEvent - loads all the places
 
 
+### Places Managers:
+1. #### States:
+   * PlacesInitial - initial state
+   * PlacesLoading - loading places state
+   * PlacesLoaded - loading success state
+   * PlacesUpdated - state for after updating a place
+   * PlacesError - handles any error occurring during either Loading the places or updating a place
+2. #### Events: 
+   * LoadPlaces - triggers loading the places
+   * LoadMorePlaces - triggers loading more places
 
 ### packages used:
-- [shared preferences](https://pub.dev/packages/shared_preferences)
-- [Hive flutter](https://pub.dev/packages/hive_flutter)
-- [easy localization](https://pub.dev/packages/easy_localization)
+- [Country Code Picker](https://pub.dev/packages/country_code_picker)
+- [Build Runner](https://pub.dev/packages/build_runner)
+- [Shared Preferences](https://pub.dev/packages/shared_preferences)
+- [Hive Flutter](https://pub.dev/packages/hive_flutter)
+- [Easy Localization](https://pub.dev/packages/easy_localization)
 - [dartz](https://pub.dev/packages/dartz)
-- [flutter bloc](https://pub.dev/packages/flutter_bloc)
+- [Flutter BLoC](https://pub.dev/packages/flutter_bloc)
 
 
-### [ui design](https://www.figma.com/design/sBPzQg1RO0wmHxRJJHVtpZ/Egy-Tour?node-id=0-1&p=f&t=bnztC7PVr0QlNAls-0)
+# [ui design](https://www.figma.com/design/sBPzQg1RO0wmHxRJJHVtpZ/Egy-Tour?node-id=0-1&p=f&t=bnztC7PVr0QlNAls-0)
 
 
 
