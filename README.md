@@ -33,7 +33,7 @@ A mobile application for tourists visiting Egypt to explore landmarks, museums, 
 6. ### Profile
     this screen displays the users info(name, email, phone number, password(obscured))
 
-## Managers
+## Managers: 
 all managers are made using bloc pattern
 ### auth managers:
 - ##### States: 
@@ -55,11 +55,11 @@ all managers are made using bloc pattern
 
 
 
-### basic managers:
+### Basic Managers: 
 
 
 
-### home managers:
+### Home Managers: 
 
 
 
