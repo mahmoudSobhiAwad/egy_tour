@@ -23,8 +23,8 @@ A mobile application for tourists visiting Egypt to explore landmarks, museums, 
    on pressing the sign-up button, the data is stored in a hive box which can be later accessed to login and then navigate to the login screen
 3. ### Home
     the home page has two tabs
-     1. a grid of suggested places 
-     2. a horizontal list of popular places
+     * a grid of suggested places 
+     * a horizontal list of popular places
      each place is a card containing a photo of the place, the name and the government of the place with the ability to add any place into your favorites
 4. ### Governments
     the governments screen contains three governments with each government having 2 landmarks
