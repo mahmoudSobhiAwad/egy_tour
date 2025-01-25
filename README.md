@@ -35,7 +35,7 @@ A mobile application for tourists visiting Egypt to explore landmarks, museums, 
 
 ## Managers: 
 all managers are made using bloc pattern
-### auth managers:
+### Authentication Managers:
 ##### States: 
 * AuthInitial - initial state
 * AuthLoading - loading state
