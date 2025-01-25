@@ -36,22 +36,21 @@ A mobile application for tourists visiting Egypt to explore landmarks, museums, 
 ## Managers: 
 all managers are made using bloc pattern
 ### Authentication Managers:
-##### States: 
-* AuthInitial - initial state
-* AuthLoading - loading state
-* AuthAuthenticated - authenticated state when credentials are verified
-* AuthUnauthenticated - unauthenticated state when credentials are not correct
-* AuthError - error state to handle any type of error (authentication or network error)
-* ChangeObsecureTextState - state to change the visibility of the password field
-* ChangePickedCountryState - change the country code for the phone number
+1. ##### States: 
+   * AuthInitial - initial state
+   * AuthLoading - loading state
+   * AuthAuthenticated - authenticated state when credentials are verified
+   * AuthUnauthenticated - unauthenticated state when credentials are not correct
+   * AuthError - error state to handle any type of error (authentication or network error)
+   * ChangeObsecureTextState - state to change the visibility of the password field
+   * ChangePickedCountryState - change the country code for the phone number
 
-
-##### Events: 
-* LoginRequested - this event occurs when the user presses the login button and takes the email and password as required parameters to verify them
-* SignUpRequested - this even occurs when the user presses the sign-up button and takes the user model as a required parameter and searches for it in the users list stored in a hive box if it wasn't found adds the user in the users list 
-* LogoutRequested - this event occurs when the user presses the logout button
-* ChangeObsecureTextEvent - this event occurs when the user toggles the visibility of the password field in the login and sign-up screens
-* ChangePickedCountryEvent - this event occurs when the user changes the selected country in the phone number field in the sign-up screen
+2. ##### Events: 
+   * LoginRequested - this event occurs when the user presses the login button and takes the email and password as required parameters to verify them
+   * SignUpRequested - this even occurs when the user presses the sign-up button and takes the user model as a required parameter and searches for it in the users list stored in a hive box if it wasn't found adds the user in the users list 
+   * LogoutRequested - this event occurs when the user presses the logout button
+   * ChangeObsecureTextEvent - this event occurs when the user toggles the visibility of the password field in the login and sign-up screens
+   * ChangePickedCountryEvent - this event occurs when the user changes the selected country in the phone number field in the sign-up screen
 
 
 
