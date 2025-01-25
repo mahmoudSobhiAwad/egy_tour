@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:egy_tour/core/utils/constants/constant_variables.dart';
 import 'package:egy_tour/core/utils/functions/hive_services.dart';
-import 'package:egy_tour/features/sign_up/data/models/user_model.dart';
+import 'package:egy_tour/features/auth/data/models/user_model.dart';
 import 'package:egy_tour/features/sign_up/data/repos/sign_up_repo.dart';
 
 class SignUpRepoImp implements SignUpRepo {

@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:egy_tour/core/utils/theme/app_colors.dart';
 import 'package:egy_tour/core/utils/theme/font_styles.dart';
 import 'package:egy_tour/core/utils/widget/custom_places_card.dart';
-import 'package:egy_tour/features/sign_up/data/models/user_model.dart';
+import 'package:egy_tour/features/auth/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/constants/governments_list.dart';

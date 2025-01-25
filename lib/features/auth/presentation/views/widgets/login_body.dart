@@ -5,15 +5,14 @@ import 'package:egy_tour/core/utils/theme/app_colors.dart';
 import 'package:egy_tour/core/utils/theme/font_styles.dart';
 import 'package:egy_tour/core/utils/widget/custom_email_field.dart';
 import 'package:egy_tour/core/utils/widget/custom_password_field.dart';
-import 'package:egy_tour/core/utils/widget/custom_snack_bar.dart';
-import 'package:egy_tour/features/basic/presentation/views/basic_view.dart';
+import 'package:egy_tour/features/auth/presentation/manager/bloc/auth_bloc.dart';
 import 'package:egy_tour/features/login/data/repos/login_repo_imp.dart';
-import 'package:egy_tour/features/login/presentation/views/widgets/have_account_login.dart';
-import 'package:egy_tour/features/login/presentation/views/widgets/login_push_buttong.dart';
+import 'package:egy_tour/features/auth/presentation/views/widgets/have_account_login.dart';
+import 'package:egy_tour/features/auth/presentation/views/widgets/login_push_buttong.dart';
 import 'package:egy_tour/core/utils/widget/title_with_changing_lang.dart';
-import 'package:egy_tour/features/sign_up/data/models/user_model.dart';
-import 'package:egy_tour/features/sign_up/presentation/views/sign_up_view.dart';
+import 'package:egy_tour/features/auth/presentation/views/sign_up_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginBody extends StatefulWidget {
   const LoginBody({
@@ -28,12 +27,13 @@ late FocusNode _focusNode1;
 late FocusNode _focusNode2;
 late TextEditingController emailController;
 late TextEditingController passwordController;
-final formKey = GlobalKey<FormState>();
+late GlobalKey<FormState> _formKey;
 bool isObeseureText = false;
 
 class _LoginBodyState extends State<LoginBody> {
   @override
   void initState() {
+    _formKey = GlobalKey<FormState>();
     emailController = TextEditingController();
     passwordController = TextEditingController();
     _focusNode1 = FocusNode();
@@ -53,7 +53,7 @@ class _LoginBodyState extends State<LoginBody> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: _formKey,
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
@@ -87,17 +87,27 @@ class _LoginBodyState extends State<LoginBody> {
                 SizedBox(
                   height: 5,
                 ),
-                CustomPasswordField(
-                  onFieldSubmitted: (value) {
-                    _focusNode2.unfocus();
+                BlocBuilder<AuthBloc, AuthState>(
+                  buildWhen: (prev, curr) {
+                    return curr is ChangeObsecureTextState;
                   },
-                  passwordController: passwordController,
-                  focusNode: _focusNode2,
-                  isObeseureText: isObeseureText,
-                  changeObsecureText: () {
-                    setState(() {
-                      isObeseureText = !isObeseureText;
-                    });
+                  builder: (context, state) {
+                    var bloc = context.read<AuthBloc>();
+                    if (state is ChangeObsecureTextState) {
+                      isObeseureText = state.status;
+                    }
+                    return CustomPasswordField(
+                      onFieldSubmitted: (value) {
+                        _focusNode2.unfocus();
+                      },
+                      passwordController: passwordController,
+                      focusNode: _focusNode2,
+                      isObeseureText: isObeseureText,
+                      changeObsecureText: () {
+                        bloc.add(
+                            ChangeObsecureTextEvent(value: isObeseureText));
+                      },
+                    );
                   },
                 ),
                 SizedBox(
@@ -112,21 +122,31 @@ class _LoginBodyState extends State<LoginBody> {
               spacing: 20,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                CustomPushButton(
-                  onTap: () async {
-                    _focusNode1.unfocus();
-                    _focusNode2.unfocus();
-                    if (formKey.currentState!.validate()) {
-                      await loginFun(context);
-                    }
+                BlocBuilder<AuthBloc, AuthState>(
+                  builder: (context, state) {
+                    var bloc = context.read<AuthBloc>();
+                    return CustomPushButton(
+                      isLoading: state is AuthLoading,
+                      onTap: () async {
+                        _focusNode1.unfocus();
+                        _focusNode2.unfocus();
+                        if (_formKey.currentState!.validate()) {
+                          bloc.add(LoginRequested(
+                              email: emailController.text,
+                              password: passwordController.text));
+                        }
+                      },
+                      title: 'login.login_button'.tr(),
+                    );
                   },
-                  title: 'login.login_button'.tr(),
                 ),
                 HavingAccountLoginOrSignUp(
                   mainText: "login.no_account".tr(),
                   actionText: 'login.create'.tr(),
                   onTapActionText: () {
-                    context.push(SignUpView());
+                    context.push(SignUpView(
+                      bloc: context.read<AuthBloc>(),
+                    ));
                   },
                 ),
                 SizedBox()
@@ -136,27 +156,5 @@ class _LoginBodyState extends State<LoginBody> {
         ],
       ),
     );
-  }
-
-  Future<void> loginFun(BuildContext context) async {
-    await loginRepoImp
-        .checkLogin(User(
-            userName: "",
-            email: emailController.text,
-            password: passwordController.text))
-        .then((value) {
-      value.fold((model) {
-        if (model != null) {
-          context.pushReplacement(BasicView(
-            email: model.email,
-          ));
-        } else {
-          showCustomSnackBar(context, "Email or Password is not correct",
-              backgroundColor: AppColors.red);
-        }
-      }, (error) {
-        showCustomSnackBar(context, error, backgroundColor: AppColors.red);
-      });
-    });
   }
 }

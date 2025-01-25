@@ -5,19 +5,23 @@ import 'package:flutter/material.dart';
 class SuffixInPhoneFormField extends StatelessWidget {
   const SuffixInPhoneFormField({
     super.key,
+    this.onChanged,
+    this.countryCode,
   });
-
+  final void Function(CountryCode)? onChanged;
+  final String? countryCode;
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5,vertical: 3),
+      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.lightGrey1, width: 2),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: CountryCodePicker(
+        onChanged: onChanged,
         alignLeft: true,
-        initialSelection: 'EG',
+        initialSelection: countryCode??'EG',
         margin: EdgeInsets.all(0),
         showCountryOnly: false,
         hideMainText: true,

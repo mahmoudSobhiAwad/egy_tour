@@ -3,7 +3,7 @@ import 'package:egy_tour/features/favourites/data/repos/favourites_repo_imp.dart
 import 'package:egy_tour/features/governments/data/models/land_mark_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../../sign_up/data/models/user_model.dart';
+import '../../../auth/data/models/user_model.dart';
 
 class FavouritesView extends StatefulWidget {
   final User? user;

@@ -4,7 +4,7 @@ part 'user_model.g.dart';
 @HiveType(typeId: 1)
 class User {
   @HiveField(0)
-  final String userName;
+  final String? userName;
   @HiveField(1)
   final String email;
   @HiveField(2)
@@ -15,7 +15,7 @@ class User {
   List<String> favorites;
 
   User({
-    required this.userName,
+    this.userName,
     required this.email,
     required this.password,
     this.phoneNumber,

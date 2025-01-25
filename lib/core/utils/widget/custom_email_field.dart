@@ -9,11 +9,9 @@ class CustomEmailField extends StatelessWidget {
       {super.key,
       this.focusNode,
       required this.emailController,
-      this.formKey,
       this.enabled = true});
   final FocusNode? focusNode;
   final TextEditingController emailController;
-  final GlobalKey<FormState>? formKey;
   final bool enabled;
   @override
   Widget build(BuildContext context) {

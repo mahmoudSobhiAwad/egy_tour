@@ -8,9 +8,9 @@ import 'package:egy_tour/features/basic/presentation/views/widgets/show_dialog_e
 import 'package:egy_tour/features/governments/presentation/views/government_view.dart';
 import 'package:egy_tour/features/home/data/repos/home_repo_imp.dart';
 import 'package:egy_tour/features/home/presentation/views/home_view.dart';
-import 'package:egy_tour/features/login/presentation/views/login_view.dart';
+import 'package:egy_tour/features/auth/presentation/views/login_view.dart';
 import 'package:egy_tour/features/profile/presentation/views/profile_view.dart';
-import 'package:egy_tour/features/sign_up/data/models/user_model.dart';
+import 'package:egy_tour/features/auth/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../favourites/presentation/views/favourites_view.dart';

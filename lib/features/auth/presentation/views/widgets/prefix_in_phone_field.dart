@@ -5,16 +5,15 @@ import 'package:flutter/material.dart';
 class PrefixInPhoneFormField extends StatelessWidget {
   const PrefixInPhoneFormField({
     super.key,
+    this.countryPhoneCode,
   });
-
+  final String? countryPhoneCode;
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Icon(Icons.phone_android, color: AppColors.grey21),
-
-        // Country Code
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -23,7 +22,7 @@ class PrefixInPhoneFormField extends StatelessWidget {
             borderRadius: BorderRadius.circular(6),
           ),
           child: Text(
-            '+20',
+            countryPhoneCode ?? "+20",
             style: AppTextStyles.regular14.copyWith(color: AppColors.white),
           ),
         ),

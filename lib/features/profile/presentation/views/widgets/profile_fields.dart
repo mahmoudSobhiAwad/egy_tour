@@ -1,7 +1,7 @@
 import 'package:egy_tour/core/utils/widget/custom_email_field.dart';
 import 'package:egy_tour/core/utils/widget/custom_password_field.dart';
-import 'package:egy_tour/features/sign_up/presentation/views/widgets/custom_phone_field.dart';
-import 'package:egy_tour/features/sign_up/presentation/views/widgets/user_name_field.dart';
+import 'package:egy_tour/features/auth/presentation/views/widgets/custom_phone_field.dart';
+import 'package:egy_tour/features/auth/presentation/views/widgets/user_name_field.dart';
 import 'package:flutter/material.dart';
 
 class ProfileFields extends StatelessWidget {

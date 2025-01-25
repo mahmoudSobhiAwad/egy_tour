@@ -9,11 +9,12 @@ class CustomPushButton extends StatelessWidget {
     this.onTap,
     required this.title,
     this.backgroundColor,
+    this.isLoading = false,
   });
   final void Function()? onTap;
   final String title;
   final Color? backgroundColor;
-
+  final bool isLoading;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -26,11 +27,17 @@ class CustomPushButton extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(8)),
           color: backgroundColor ?? AppColors.blueLight,
         ),
-        child: Text(
-          title,
-          textAlign: TextAlign.center,
-          style: AppTextStyles.bold18.copyWith(color: AppColors.white),
-        ),
+        child: isLoading
+            ? Center(
+              child: CircularProgressIndicator(
+                  color: AppColors.white,
+                ),
+            )
+            : Text(
+                title,
+                textAlign: TextAlign.center,
+                style: AppTextStyles.bold18.copyWith(color: AppColors.white),
+              ),
       ),
     );
   }

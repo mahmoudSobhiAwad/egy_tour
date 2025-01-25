@@ -1,36 +1,40 @@
 import 'package:egy_tour/core/utils/functions/shared_pref_helper.dart';
 import 'package:egy_tour/features/basic/presentation/views/basic_view.dart';
-import 'package:egy_tour/features/login/presentation/views/login_view.dart';
+import 'package:egy_tour/features/auth/presentation/views/login_view.dart';
 import 'package:flutter/material.dart';
 
-class CheckingLoginedUser extends StatelessWidget {
+class CheckingLoginedUser extends StatefulWidget {
   const CheckingLoginedUser({super.key});
 
-  Future<String> _checkUserLoggedIn() async {
-    return await SharedPrefHelper.getString();
+  @override
+  State<CheckingLoginedUser> createState() => _SplashCheckingState();
+}
+
+class _SplashCheckingState extends State<CheckingLoginedUser> {
+  Widget? _initialView;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkUserLoggedIn();
+  }
+
+  Future<void> _checkUserLoggedIn() async {
+    final String value = await SharedPrefHelper.getString();
+    if (value.isNotEmpty) {
+      _initialView = BasicView(email: value);
+    } else {
+      _initialView = LoginView();
+    }
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<String>(
-      future: _checkUserLoggedIn(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        }
+    if (_initialView == null) {
+      return const Scaffold();
+    }
 
-        if (snapshot.hasData && snapshot.data != null && snapshot.data != '') {
-          return BasicView(
-            email: snapshot.data!,
-          );
-        } else {
-          return const LoginView();
-        }
-      },
-    );
+    return _initialView!;
   }
 }

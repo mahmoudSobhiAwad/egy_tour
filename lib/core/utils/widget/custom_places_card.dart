@@ -2,7 +2,7 @@ import 'package:egy_tour/core/utils/theme/font_styles.dart';
 import 'package:egy_tour/features/governments/data/models/land_mark_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../../features/sign_up/data/models/user_model.dart';
+import '../../../features/auth/data/models/user_model.dart';
 import '../theme/app_colors.dart';
 
 class PlaceCard extends StatefulWidget {

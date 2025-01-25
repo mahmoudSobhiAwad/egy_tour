@@ -1,6 +1,6 @@
 import 'package:egy_tour/core/utils/theme/app_colors.dart';
 import 'package:egy_tour/core/utils/theme/font_styles.dart';
-import 'package:egy_tour/features/login/presentation/views/widgets/login_push_buttong.dart';
+import 'package:egy_tour/features/auth/presentation/views/widgets/login_push_buttong.dart';
 import 'package:flutter/material.dart';
 
 class CustomDialog extends StatelessWidget {
