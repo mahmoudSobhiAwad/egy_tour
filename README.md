@@ -13,14 +13,14 @@ A mobile application for tourists visiting Egypt to explore landmarks, museums, 
     account data is stored in a hive box
 2. ### Sign-up
     the sign-up screen has four fields:
-        1. username
-        2. email
-        3. phone number
-        4. password
-    name must start with upper-case letter
-    email must contain @
-    password must be at least 6 characters
-    on pressing the sign-up button, the data is stored in a hive box which can be later accessed to login and then navigate to the login screen
+   * username
+   * email
+   * phone number
+   * password 
+   name must start with upper-case letter\
+   email must contain @\
+   password must be at least 6 characters\
+   on pressing the sign-up button, the data is stored in a hive box which can be later accessed to login and then navigate to the login screen
 3. ### Home
     the home page has two tabs
         1. a grid of suggested places 
