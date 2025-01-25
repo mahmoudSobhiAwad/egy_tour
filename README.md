@@ -17,6 +17,7 @@ A mobile application for tourists visiting Egypt to explore landmarks, museums, 
    * email
    * phone number
    * password 
+
    name must start with upper-case letter\
    email must contain @\
    password must be at least 6 characters\
