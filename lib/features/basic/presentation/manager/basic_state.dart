@@ -5,6 +5,8 @@ sealed class BasicState {}
 
 final class BasicInitial extends BasicState {}
 
+final class SuccessLogoutState extends BasicState {}
+
 final class BaiscChangeBasicIndex extends BasicState {
   final int index;
 

@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:egy_tour/core/utils/extensions/navigation.dart';
 import 'package:egy_tour/core/utils/theme/app_colors.dart';
 import 'package:egy_tour/core/utils/theme/font_styles.dart';
+import 'package:egy_tour/features/auth/presentation/views/login_view.dart';
 import 'package:egy_tour/features/basic/presentation/manager/basic_cubit.dart';
 import 'package:egy_tour/features/basic/presentation/views/widgets/custom_basic_drawer.dart';
 import 'package:egy_tour/features/basic/presentation/views/widgets/custom_bottom_navigation_bar.dart';
@@ -43,7 +45,12 @@ class _BasicViewState extends State<BasicView> {
           SystemNavigator.pop();
         }
       },
-      child: BlocBuilder<BasicCubit, BasicState>(
+      child: BlocConsumer<BasicCubit, BasicState>(
+        listener: (context, state) {
+          if (state is SuccessLogoutState) {
+            context.pushReplacement(LoginView());
+          }
+        },
         buildWhen: (prev, curr) {
           return curr is BaiscChangeBasicIndex;
         },
@@ -59,11 +66,7 @@ class _BasicViewState extends State<BasicView> {
                     userName: widget.user.userName ?? "",
                     logout: (bool value) async {
                       if (value) {
-                        // await homeRepoImp.logOut().then((value) {
-                        //   if (context.mounted) {
-                        //     context.pushReplacement(LoginView());
-                        //   }
-                        // });
+                        context.read<BasicCubit>().logOut();
                       }
                     },
                   ),
