@@ -5,20 +5,9 @@ sealed class BasicState {}
 
 final class BasicInitial extends BasicState {}
 
-class UsersLoading extends BasicState {
-  final bool isLoading;
+final class BaiscChangeBasicIndex extends BasicState {
+  final int index;
 
-  UsersLoading(this.isLoading);
+  BaiscChangeBasicIndex({required this.index});
 }
 
-class UsersLoaded extends BasicState {
-  final User? userModel;
-  UsersLoaded(this.userModel);
-}
-
-class UsersError extends BasicState {
-  final String error;
-  UsersError(this.error);
-}
-
-class ScreenChanged extends BasicState {}

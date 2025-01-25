@@ -3,10 +3,11 @@ part of 'home_bloc.dart';
 @immutable
 sealed class HomeEvent {}
 
-class FavoritedEvent extends HomeEvent {
-  final bool isfavorited = true;
+class ToggleItemInFavouriteEvent extends HomeEvent {
+  final String itemId;
+  final bool isBasicDate;
+
+  ToggleItemInFavouriteEvent({required this.itemId, this.isBasicDate = true});
 }
 
-class UnFavoritedEvent extends HomeEvent {
-  final bool isfavorited = false;
-}
+class LoadAllPlacesDataEvent extends HomeEvent {}

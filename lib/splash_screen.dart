@@ -1,4 +1,6 @@
 import 'package:egy_tour/core/utils/functions/shared_pref_helper.dart';
+import 'package:egy_tour/features/auth/data/models/user_model.dart';
+import 'package:egy_tour/features/auth/data/repo/auth_repo_imp.dart';
 import 'package:egy_tour/features/basic/presentation/views/basic_view.dart';
 import 'package:egy_tour/features/auth/presentation/views/login_view.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,9 @@ class _SplashCheckingState extends State<CheckingLoginedUser> {
   Future<void> _checkUserLoggedIn() async {
     final String value = await SharedPrefHelper.getString();
     if (value.isNotEmpty) {
-      _initialView = BasicView(email: value);
+      final data = await AuthRepoImp().service.getAllPerson() as List<User>;
+      _initialView =
+          BasicView(user: data.firstWhere((model) => model.email == value));
     } else {
       _initialView = LoginView();
     }

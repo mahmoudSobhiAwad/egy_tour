@@ -8,21 +8,23 @@ import 'package:egy_tour/features/auth/data/models/user_model.dart';
 class HomeRepoImp implements HomeRepo {
   Service service = Service<User>(boxName: userBox);
   @override
-  Future<Either<User?, String>> getUserModel(String email) async {
+  Future<Either<User, String>> getUserModel(String email) async {
     try {
       List<User> usersList = await service.getAllPerson() as List<User>;
 
       bool isUserExist =
           usersList.where((model) => model.email == email).isNotEmpty;
-
-      return left(isUserExist ? usersList.first : null);
+      if (isUserExist) {
+        return left(usersList.first);
+      }
+      return right('Error');
     } catch (e) {
       return right(e.toString());
     }
   }
 
   @override
-  Future<void> logOut() async{
+  Future<void> logOut() async {
     await SharedPrefHelper.setString('');
   }
 }

@@ -1,3 +1,4 @@
+import 'package:egy_tour/features/auth/data/models/user_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class Service<T> {
@@ -18,8 +19,10 @@ class Service<T> {
   }
 
 //update
-  Future<void> updateDeck(int index, T model) async {
+
+  Future<void> updateFavList(int index, T model) async {
     var box = await _box;
+    print(model);
     await box.putAt(index, model);
   }
 

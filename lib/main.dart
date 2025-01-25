@@ -3,6 +3,7 @@ import 'package:egy_tour/core/utils/constants/constant_variables.dart';
 import 'package:egy_tour/core/utils/functions/bloc_observer.dart';
 import 'package:egy_tour/core/utils/theme/app_colors.dart';
 import 'package:egy_tour/features/auth/data/models/user_model.dart';
+import 'package:egy_tour/features/basic/presentation/manager/basic_cubit.dart';
 import 'package:egy_tour/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,16 +31,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          scaffoldBackgroundColor: AppColors.white,
-          fontFamily: fontFamily,
-          useMaterial3: true,
-        ),
-        home: CheckingLoginedUser());
+    return BlocProvider(
+      create: (context) => BasicCubit(),
+      child: MaterialApp(
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            scaffoldBackgroundColor: AppColors.white,
+            fontFamily: fontFamily,
+            useMaterial3: true,
+          ),
+          home: CheckingLoginedUser()),
+    );
   }
 }
