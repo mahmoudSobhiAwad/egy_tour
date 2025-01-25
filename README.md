@@ -36,7 +36,7 @@ A mobile application for tourists visiting Egypt to explore landmarks, museums, 
 ## Managers: 
 all managers are made using bloc pattern
 ### Authentication Managers:
-1. ##### States: 
+1. #### States: 
    * AuthInitial - initial state
    * AuthLoading - loading state
    * AuthAuthenticated - authenticated state when credentials are verified
@@ -45,7 +45,7 @@ all managers are made using bloc pattern
    * ChangeObsecureTextState - state to change the visibility of the password field
    * ChangePickedCountryState - change the country code for the phone number
 
-2. ##### Events: 
+2. #### Events: 
    * LoginRequested - this event occurs when the user presses the login button and takes the email and password as required parameters to verify them
    * SignUpRequested - this even occurs when the user presses the sign-up button and takes the user model as a required parameter and searches for it in the users list stored in a hive box if it wasn't found adds the user in the users list 
    * LogoutRequested - this event occurs when the user presses the logout button
