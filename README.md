@@ -54,6 +54,7 @@ all managers are made using bloc pattern
 * ChangePickedCountryEvent - this event occurs when the user changes the selected country in the phone number field in the sign-up screen
 
 
+
 ### basic managers:
 
 
