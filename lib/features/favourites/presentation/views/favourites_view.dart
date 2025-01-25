@@ -16,6 +16,7 @@ class FavouritesView extends StatefulWidget {
 class _FavouritesViewState extends State<FavouritesView> {
   final FavouritesRepoImp favouritesRepoImp = FavouritesRepoImp();
   List<LandmarkModel>? favoriteList = [];
+
   @override
   void initState() {
     super.initState();
