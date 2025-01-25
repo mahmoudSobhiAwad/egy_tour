@@ -65,11 +65,11 @@ all managers are made using bloc pattern
 
 
 packages used:
-[shared preferences](https://pub.dev/packages/shared_preferences)\
-[Hive flutter](https://pub.dev/packages/hive_flutter)\
-[easy localization](https://pub.dev/packages/easy_localization)\
-[dartz](https://pub.dev/packages/dartz)\
-[flutter bloc](https://pub.dev/packages/flutter_bloc)\
+- [shared preferences](https://pub.dev/packages/shared_preferences)
+- [Hive flutter](https://pub.dev/packages/hive_flutter)
+- [easy localization](https://pub.dev/packages/easy_localization)
+- [dartz](https://pub.dev/packages/dartz)
+- [flutter bloc](https://pub.dev/packages/flutter_bloc)
 
 
 
