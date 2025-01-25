@@ -7,6 +7,7 @@ import 'package:egy_tour/features/basic/presentation/manager/basic_cubit.dart';
 import 'package:egy_tour/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {

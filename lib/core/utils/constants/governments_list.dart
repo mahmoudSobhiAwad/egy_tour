@@ -105,3 +105,48 @@ List<GovernmentModel> governmentsList = [
       ],
       governId: '2'),
 ];
+
+
+List<GovernmentModel> moreGovernmentsList = [
+  GovernmentModel(
+      description:
+          "A breathtaking region where dramatic mountains meet stunning coastal beaches, rich in historical significance and natural beauty.",
+      imageUrl: "assets/images/Flag_of_South_Sinai_Governorate.png",
+      name: "Sinai, Egypt",
+      landMarkList: [
+        LandmarkModel(
+            uniqueId: '6',
+            title: "Jabal Mousa",
+            imageUrl: "assets/images/Jabal_Mousa.jpg",
+            governName: "Sinai,\n Egypt",
+            isFavorite: false),
+        LandmarkModel(
+            uniqueId: '7',
+            title: "Ras Mohamed",
+            imageUrl: "assets/images/Ras_Mohamed.jpg",
+            governName: "Sinai,\n Egypt",
+            isFavorite: false),
+
+      ],
+      governId: '3'),
+  GovernmentModel(
+      description:
+          "A serene and picturesque city along the Nile River, known for impressive archaeological sites, colorful Nubian culture, and the stunning Aswan High Dam.",
+      imageUrl: "assets/images/Flag_of_Aswan_Governorate.png",
+      name: "Aswan, Egypt",
+      landMarkList: [
+        LandmarkModel(
+            uniqueId: '8',
+            title: "Kom Ombo Temple",
+            imageUrl: "assets/images/Kom_Ombo_Temple.jpg",
+            governName: "Aswan, Egypt",
+            isFavorite: false),
+        LandmarkModel(
+            uniqueId: '9',
+            title: "High Dam",
+            imageUrl: "assets/images/High_Dam.jpg",
+            governName: "Aswan, Egypt",
+            isFavorite: false),
+      ],
+      governId: '4'),
+];
