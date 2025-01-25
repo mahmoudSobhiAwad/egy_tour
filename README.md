@@ -64,7 +64,7 @@ all managers are made using bloc pattern
 
 
 
-packages used:
+### packages used:
 - [shared preferences](https://pub.dev/packages/shared_preferences)
 - [Hive flutter](https://pub.dev/packages/hive_flutter)
 - [easy localization](https://pub.dev/packages/easy_localization)
@@ -72,8 +72,8 @@ packages used:
 - [flutter bloc](https://pub.dev/packages/flutter_bloc)
 
 
+### [ui design](https://www.figma.com/design/sBPzQg1RO0wmHxRJJHVtpZ/Egy-Tour?node-id=0-1&p=f&t=bnztC7PVr0QlNAls-0)
 
-[ui design](https://www.figma.com/design/sBPzQg1RO0wmHxRJJHVtpZ/Egy-Tour?node-id=0-1&p=f&t=bnztC7PVr0QlNAls-0)
 
 
 
