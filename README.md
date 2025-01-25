@@ -73,9 +73,9 @@ packages used:
 
 
 
-[ui design](https://www.figma.com/design/sBPzQg1RO0wmHxRJJHVtpZ/Egy-Tour?node-id=0-1&p=f&t=bnztC7PVr0QlNAls-0)
+- [ui design](https://www.figma.com/design/sBPzQg1RO0wmHxRJJHVtpZ/Egy-Tour?node-id=0-1&p=f&t=bnztC7PVr0QlNAls-0)
 
-team members:
+### team members:
 - Mostafa Elzohirey( Coordinator)
 - Mahmoud Sobhi awad
 - Mohamed Salah
