@@ -1,10 +1,10 @@
-class Place {
+class PlaceModel {
   String name;
   String location;
   String imageUrl;
   bool isFavorite;
 
-  Place(
+  PlaceModel(
       {required this.name,
       required this.location,
       required this.imageUrl,

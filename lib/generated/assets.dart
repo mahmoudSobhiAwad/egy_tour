@@ -3,7 +3,18 @@ class Assets {
   Assets._();
 
   static const String fontsAlmaraiRegular = 'assets/fonts/Almarai-Regular.ttf';
-  static const String imagesEmpty = 'assets/images/empty';
+  static const String imagesAlMontazahPalace = 'assets/images/Al_Montazah_Palace.jpg';
+  static const String imagesCitadelOfQaitbay = 'assets/images/Citadel_of_Qaitbay.jpg';
+  static const String imagesFlagCairoGovernorate = 'assets/images/Flag_Cairo_Governorate.png';
+  static const String imagesFlagOfAlexandria = 'assets/images/Flag_of_Alexandria.png';
+  static const String imagesFlagOfGizaGovernorate = 'assets/images/Flag_of_Giza_Governorate.png';
+  static const String imagesFlagOfLuxorGovernorate = 'assets/images/Flag_of_Luxor_Governorate.png';
+  static const String imagesKarnakTemple = 'assets/images/Karnak_Temple.jpg';
+  static const String imagesPlaceholder = 'assets/images/placeholder.jpg';
+  static const String imagesProfile = 'assets/images/profile.jpg';
+  static const String imagesPyramids = 'assets/images/pyramids.jpg';
+  static const String imagesQueenHatshepsutTemple = 'assets/images/Queen_Hatshepsut_Temple.jpg';
+  static const String imagesSphinx = 'assets/images/sphinx.jfif';
   static const String langAr = 'assets/lang/ar.json';
   static const String langEn = 'assets/lang/en.json';
 

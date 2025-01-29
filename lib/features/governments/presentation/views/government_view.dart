@@ -1,6 +1,9 @@
-import 'package:egy_tour/core/utils/extensions/media_query.dart';
+import 'package:egy_tour/features/governments/presentation/manager/bloc/places/places_event.dart';
+import 'package:egy_tour/features/governments/presentation/manager/bloc/places/places_state.dart';
 import 'package:egy_tour/features/governments/presentation/views/widgets/government_card.dart';
+import 'package:egy_tour/features/governments/presentation/manager/bloc/places/places_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GovernmentView extends StatefulWidget {
   const GovernmentView({super.key});
@@ -10,36 +13,39 @@ class GovernmentView extends StatefulWidget {
 }
 
 class _GovernmentViewState extends State<GovernmentView> {
-  List governments = [
-    {
-      "title": "Alexandria, Egypt",
-      "description": "A bustling coastal city with a rich history, once home to the legendary Library of Alexandria and the ancient Lighthouse of Pharos.",
-      "url": "assets/images/Flag_of_Alexandria.png"
-    },
-    {
-      "title": "Giza, Egypt",
-      "description": "A vibrant metropolis known for its rich history and proximity to iconic landmarks like the Great Pyramids of Giza and the Sphinx.",
-      "url": "assets/images/Flag_of_Giza_Governorate.png"
-    },
-    {
-      "title": "Luxor, Egypt",
-      "description": "Referred to as the \"world's greatest open-air museum,\" is renowned for its ancient monuments, including the Valley of the Kings, Karnak Temple, and Luxor Temple.",
-      "url": "assets/images/Flag_of_Luxor_Governorate.png"
-    }
-  ];
-
   @override
-  Widget build(BuildContext context) {    
-    return SizedBox(
-      width: context.screenWidth,
-      height: context.screenHeight*0.8,
-      child: ListView.builder(
-        itemCount: governments.length,
-        itemBuilder: (context, index) {
-          return GovernmentCard(
-            imageURL: governments[index]['url'],
-            title: governments[index]['title'],
-            description: governments[index]['description'],
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => PlacesBloc()..add(LoadPlaces()),
+      child: BlocBuilder<PlacesBloc, PlacesState>(
+        builder: (context, state) {
+          final placesBloc = BlocProvider.of<PlacesBloc>(context);
+
+          if (state is PlacesLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is PlacesLoaded) {
+            return Column(
+              children: <Widget>[
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: state.governments.length,
+                    itemBuilder: (context, index) {
+                      return GovernmentCard(
+                        governModel: state.governments[index], placesBloc: placesBloc,
+                      );
+                    },
+                  ),
+                ),
+              
+              ],
+            );
+          }  else if (state is PlacesError) {
+            return Center(child: Text(state.message));
+          }
+          return Center(
+            child: Text("Please Wait .."),
           );
         },
       ),

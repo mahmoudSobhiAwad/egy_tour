@@ -1,0 +1,28 @@
+{
+  "signup": {
+    "title": "Create Account",
+    "subtitle": "With us, you'll discover Egypt like never before",
+    "username": "Username",
+    "email": "E-mail",
+    "phone": "Phone number",
+    "password": "Password",
+    "signup_button": "Sign Up",
+    "already_have_account": "Already have an Account?",
+    "login": "Login"
+  },
+  "login": {
+    "app_name": "Egy-Tour",
+    "welcome_title": "Welcome To Egypt",
+    "welcome_subtitle": "With us, you will find your best experience exploring the wonders of Egypt.",
+    "email": "Email",
+    "password": "Password",
+    "login_button": "Login",
+    "no_account": "Don't have an account?",
+    "create": "Create"
+  },
+  "home": {
+    "app_name": "Egy-Tour",
+    "suggestedPlaces": "Suggested Places",
+    "popularPlaces": "Popular Places"
+  }
+}
