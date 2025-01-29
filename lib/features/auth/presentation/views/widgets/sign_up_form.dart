@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:egy_tour/core/utils/extensions/navigation.dart';
 import 'package:egy_tour/core/utils/widget/custom_email_field.dart';
 import 'package:egy_tour/core/utils/widget/custom_password_field.dart';
+import 'package:egy_tour/core/utils/widget/custom_snack_bar.dart';
 import 'package:egy_tour/features/auth/presentation/views/widgets/have_account_login.dart';
 import 'package:egy_tour/features/auth/presentation/views/widgets/login_push_buttong.dart';
 import 'package:egy_tour/features/auth/data/models/user_model.dart';
@@ -11,6 +12,8 @@ import 'package:egy_tour/features/auth/presentation/views/widgets/user_name_fiel
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/utils/functions/authentication_services.dart';
+import '../../../../../core/utils/functions/firestore_services.dart';
 import '../../manager/bloc/auth_bloc.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -125,15 +128,28 @@ class _SignUpFormState extends State<SignUpForm> {
           CustomPushButton(
             onTap: () async {
               if (_formKey.currentState!.validate()) {
-                final user = UserModel(
-                  userName: nameController.text,
-                  email: emailController.text,
-                  password: passwordController.text,
-                  phoneNumber:
-                      '${countryCode.dialCode ?? ""}${phoneController.text}',
-                );
+                try {
+                  final uid = AuthenticationServices.auth.currentUser?.uid;
+                  final user = UserModel(
+                    id: uid,
+                    userName: nameController.text,
+                    email: emailController.text,
+                    password: passwordController.text,
+                    phoneNumber: '${countryCode.dialCode ?? ""}${phoneController.text}',
+                  );
 
-                context.read<AuthBloc>().add(SignUpRequested(user: user));
+                  // Create authentication user first
+                  await AuthenticationServices.createUser(user: user);
+
+                  // Add user to firestore
+                  await FirestoreServices.addUser(user);
+
+                  context.read<AuthBloc>().add(SignUpRequested(user: user));
+
+                  showCustomSnackBar(context, 'Signup Successfully', backgroundColor: Colors.green);
+                } catch(e) {
+                  showCustomSnackBar(context, e.toString(), backgroundColor: Colors.red);
+                }
               }
             },
             title: "signup.signup_button".tr(),

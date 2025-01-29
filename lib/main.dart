@@ -4,12 +4,20 @@ import 'package:egy_tour/core/utils/functions/bloc_observer.dart';
 import 'package:egy_tour/core/utils/theme/app_colors.dart';
 import 'package:egy_tour/features/auth/data/models/user_model.dart';
 import 'package:egy_tour/features/basic/presentation/manager/basic_cubit.dart';
+import 'package:egy_tour/firebase_options.dart';
 import 'package:egy_tour/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   await Hive.initFlutter();
   Bloc.observer = SimpleBlocObserver();
 
