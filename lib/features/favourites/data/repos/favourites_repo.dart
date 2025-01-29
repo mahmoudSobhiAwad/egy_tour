@@ -4,5 +4,5 @@ import 'package:egy_tour/features/governments/data/models/land_mark_model.dart';
 
 abstract class FavouritesRepo {
   Future<Either<List<LandmarkModel>, String>> makeFavList(List<String> ids);
-  Future<Either<bool, String>> toggleFavourite(User user);
+  Future<Either<bool, String>> toggleFavourite(UserModel user);
 }

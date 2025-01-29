@@ -16,7 +16,7 @@ class ProfileBloc extends Bloc<UpdateUserEvent, ProfileStates> {
   Future<void> _updateUserData(UpdateUserEvent event, Emitter<ProfileStates> emit) async {
     emit(ProfileUpdateLoading());
     try {
-      final updatedUser = User(
+      final updatedUser = UserModel(
         userName: event.name,
         email: event.email,
         password: event.password,

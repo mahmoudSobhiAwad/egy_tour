@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'favourite_state.dart';
 
 class FavouriteCubit extends Cubit<FavouriteState> {
-  final User user;
+  final UserModel user;
   FavouriteCubit({required this.user}) : super(FavouriteInitial());
   List<LandmarkModel> favoriteList = [];
   

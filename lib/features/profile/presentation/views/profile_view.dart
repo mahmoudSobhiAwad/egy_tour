@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileScreen extends StatelessWidget {
-  final User? user;
-  final Function(User)? onUserUpdated; // Add callback
+  final UserModel? user;
+  final Function(UserModel)? onUserUpdated; // Add callback
 
   const ProfileScreen({
     super.key,
@@ -43,7 +43,7 @@ class ProfileScreen extends StatelessWidget {
 
 class ProfileContent extends StatefulWidget {
   final ProfileStates state;
-  final User? user;
+  final UserModel? user;
 
   const ProfileContent({
     super.key,

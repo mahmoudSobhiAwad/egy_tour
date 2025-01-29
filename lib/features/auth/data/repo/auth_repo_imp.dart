@@ -6,12 +6,12 @@ import 'package:egy_tour/features/auth/domain/repo/auth_repo.dart';
 import 'package:egy_tour/features/auth/data/models/user_model.dart';
 
 class AuthRepoImp implements AuthRepo {
-  Service service = Service<User>(boxName: userBox);
+  Service service = Service<UserModel>(boxName: userBox);
   @override
-  Future<Either<User, String>> login(User user) async {
+  Future<Either<UserModel, String>> login(UserModel user) async {
     try {
-      List<User> usersList = await service.getAllPerson() as List<User>;
-      User? loggedUser;
+      List<UserModel> usersList = await service.getAllPerson() as List<UserModel>;
+      UserModel? loggedUser;
       for (var item in usersList) {
         if (item.email == user.email && item.password == user.password) {
           loggedUser = item;
@@ -30,10 +30,10 @@ class AuthRepoImp implements AuthRepo {
   }
 
   @override
-  Future<Either<User, String>> signUp(User user) async {
+  Future<Either<UserModel, String>> signUp(UserModel user) async {
     try {
-      List<User> usersList = await service.getAllPerson() as List<User>;
-      User? loggedUser;
+      List<UserModel> usersList = await service.getAllPerson() as List<UserModel>;
+      UserModel? loggedUser;
       for (var item in usersList) {
         if (item.email == user.email && item.password == user.password) {
           loggedUser = item;

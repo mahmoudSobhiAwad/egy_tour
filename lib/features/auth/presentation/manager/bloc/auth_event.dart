@@ -11,7 +11,7 @@ class LoginRequested extends AuthEvent {
 }
 
 class SignUpRequested extends AuthEvent {
-  final User user;
+  final UserModel user;
   SignUpRequested({required this.user});
 }
 

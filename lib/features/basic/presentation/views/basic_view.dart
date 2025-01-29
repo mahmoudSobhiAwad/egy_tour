@@ -20,7 +20,7 @@ class BasicView extends StatefulWidget {
     required this.user,
   });
 
-  final User user;
+  final UserModel user;
 
   @override
   State<BasicView> createState() => _BasicViewState();

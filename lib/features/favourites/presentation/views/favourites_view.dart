@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavouritesView extends StatelessWidget {
-  final User user;
+  final UserModel user;
   const FavouritesView({super.key, required this.user});
   @override
   Widget build(BuildContext context) {

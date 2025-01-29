@@ -24,7 +24,7 @@ class _SplashCheckingState extends State<CheckingLoginedUser> {
   Future<void> _checkUserLoggedIn() async {
     final String value = await SharedPrefHelper.getString();
     if (value.isNotEmpty) {
-      final data = await AuthRepoImp().service.getAllPerson() as List<User>;
+      final data = await AuthRepoImp().service.getAllPerson() as List<UserModel>;
       _initialView =
           BasicView(user: data.firstWhere((model) => model.email == value));
     } else {

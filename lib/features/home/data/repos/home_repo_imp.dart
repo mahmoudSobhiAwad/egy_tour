@@ -6,11 +6,11 @@ import 'package:egy_tour/features/home/data/repos/home_repo.dart';
 import 'package:egy_tour/features/auth/data/models/user_model.dart';
 
 class HomeRepoImp implements HomeRepo {
-  Service service = Service<User>(boxName: userBox);
+  Service service = Service<UserModel>(boxName: userBox);
   @override
-  Future<Either<User, String>> getUserModel(String email) async {
+  Future<Either<UserModel, String>> getUserModel(String email) async {
     try {
-      List<User> usersList = await service.getAllPerson() as List<User>;
+      List<UserModel> usersList = await service.getAllPerson() as List<UserModel>;
 
       bool isUserExist =
           usersList.where((model) => model.email == email).isNotEmpty;
