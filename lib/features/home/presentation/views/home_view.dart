@@ -10,7 +10,7 @@ import 'package:egy_tour/core/utils/constants/governments_list.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeView extends StatefulWidget {
-  final User user;
+  final UserModel user;
 
   const HomeView({super.key, required this.user});
 

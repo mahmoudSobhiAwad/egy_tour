@@ -4,36 +4,36 @@ import 'package:egy_tour/core/utils/functions/hive_services.dart';
 import 'package:egy_tour/core/utils/functions/shared_pref_helper.dart';
 import 'package:egy_tour/features/auth/domain/repo/auth_repo.dart';
 import 'package:egy_tour/features/auth/data/models/user_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepoImp implements AuthRepo {
-  Service service = Service<User>(boxName: userBox);
+  Service service = Service<UserModel>(boxName: userBox);
   @override
-  Future<Either<User, String>> login(User user) async {
+  Future<Either<UserModel, String>> login(UserModel user) async {
     try {
-      List<User> usersList = await service.getAllPerson() as List<User>;
-      User? loggedUser;
-      for (var item in usersList) {
-        if (item.email == user.email && item.password == user.password) {
-          loggedUser = item;
-          break;
-        }
-      }
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: user.email, password: user.password);
+      await SharedPrefHelper.setString(credential.user?.email ?? "");
 
-      if (loggedUser != null) {
-        await SharedPrefHelper.setString(loggedUser.email);
-        return left(loggedUser);
+      return left(UserModel(
+          email: credential.user?.email ?? "",
+          password: credential.user?.email ?? ""));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        return right('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        return right('Wrong password provided for that user.');
       }
-      return right("Password or Email is wrong");
-    } catch (e) {
-      return right("No Email Found");
+      return right(e.message ?? "");
     }
   }
 
   @override
-  Future<Either<User, String>> signUp(User user) async {
+  Future<Either<UserModel, String>> signUp(UserModel user) async {
     try {
-      List<User> usersList = await service.getAllPerson() as List<User>;
-      User? loggedUser;
+      List<UserModel> usersList =
+          await service.getAllPerson() as List<UserModel>;
+      UserModel? loggedUser;
       for (var item in usersList) {
         if (item.email == user.email && item.password == user.password) {
           loggedUser = item;

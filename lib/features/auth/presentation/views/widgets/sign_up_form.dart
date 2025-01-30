@@ -125,7 +125,7 @@ class _SignUpFormState extends State<SignUpForm> {
           CustomPushButton(
             onTap: () async {
               if (_formKey.currentState!.validate()) {
-                final user = User(
+                final user = UserModel(
                   userName: nameController.text,
                   email: emailController.text,
                   password: passwordController.text,

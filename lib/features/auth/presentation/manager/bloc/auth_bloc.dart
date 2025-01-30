@@ -24,7 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(AuthLoading());
     final result = await authRepoImp
-        .login(User(email: event.email, password: event.password));
+        .login(UserModel(email: event.email, password: event.password));
     result.fold((user) {
       emit(AuthAuthenticated(user: user));
     }, (error) {

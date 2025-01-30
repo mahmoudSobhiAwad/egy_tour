@@ -8,7 +8,7 @@ import 'package:egy_tour/features/favourites/data/repos/favourites_repo.dart';
 import '../../../governments/data/models/land_mark_model.dart';
 
 class FavouritesRepoImp implements FavouritesRepo {
-  Service service = Service<User>(boxName: userBox);
+  Service service = Service<UserModel>(boxName: userBox);
 
   @override
   Future<Either<List<LandmarkModel>, String>> makeFavList(
@@ -32,9 +32,9 @@ class FavouritesRepoImp implements FavouritesRepo {
   }
 
   @override
-  Future<Either<bool, String>> toggleFavourite(User user) async {
+  Future<Either<bool, String>> toggleFavourite(UserModel user) async {
     try {
-      final List<User> users =await service.getAllPerson() as List<User>;
+      final List<UserModel> users =await service.getAllPerson() as List<UserModel>;
       int index = users.indexWhere((item) => item.email == user.email);
       await service.updateFavList(index, user);
 

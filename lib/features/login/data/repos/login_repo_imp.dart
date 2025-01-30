@@ -6,13 +6,13 @@ import 'package:egy_tour/features/login/data/repos/login_repo.dart';
 import 'package:egy_tour/features/auth/data/models/user_model.dart';
 
 class LoginRepoImp implements LoginRepo {
-  Service service = Service<User>(boxName: userBox);
+  Service service = Service<UserModel>(boxName: userBox);
   @override
-  Future<Either<User?, String>> checkLogin(User user) async {
+  Future<Either<UserModel?, String>> checkLogin(UserModel user) async {
     try {
-      List<User> usersList = await service.getAllPerson() as List<User>;
+      List<UserModel> usersList = await service.getAllPerson() as List<UserModel>;
 
-      List<User> checkingList = usersList
+      List<UserModel> checkingList = usersList
           .where(
             (item) =>
                 item.email == user.email && item.password == user.password,

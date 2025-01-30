@@ -9,7 +9,7 @@ class ProfileUpdateLoading extends ProfileStates {}
 
 class ProfileUpdateSuccess extends ProfileStates {
   final String message;
-  final User updatedUser;
+  final UserModel updatedUser;
   ProfileUpdateSuccess(this.message, this.updatedUser);
 }
 

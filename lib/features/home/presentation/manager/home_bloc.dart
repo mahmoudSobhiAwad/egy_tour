@@ -9,7 +9,7 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final User user;
+  final UserModel user;
   HomeBloc({required this.user}) : super(HomeInitial()) {
     on<ToggleItemInFavouriteEvent>(toggleItemFavourite);
     on<LoadAllPlacesDataEvent>(loadPlaces);

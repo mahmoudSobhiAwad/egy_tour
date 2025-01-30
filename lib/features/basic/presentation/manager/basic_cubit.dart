@@ -1,4 +1,4 @@
-import 'package:egy_tour/core/utils/functions/shared_pref_helper.dart';
+import 'package:egy_tour/features/home/data/repos/home_repo_imp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'basic_state.dart';
@@ -10,8 +10,13 @@ class BasicCubit extends Cubit<BasicState> {
     emit(BaiscChangeBasicIndex(index: index));
   }
 
-  void logOut() async{
-  await  SharedPrefHelper.setString('');
-  emit(SuccessLogoutState());
+  Future<void> logOut() async {
+    emit(LoadingLogoutState());
+    final result = await HomeRepoImp().logOut();
+    result.fold((success) {
+      emit(SuccessLogoutState());
+    }, (error) {
+      emit(FailureLogoutState(errMessage: error));
+    });
   }
 }

@@ -4,10 +4,10 @@ import 'package:egy_tour/features/auth/data/models/user_model.dart';
 import 'package:egy_tour/features/profile/data/repos/profile_repo.dart';
 
 class ProfileRepoImp implements ProfileRepo {
-  final Service<User> _hiveService = Service<User>(boxName: userBox);
+  final Service<UserModel> _hiveService = Service<UserModel>(boxName: userBox);
 
   @override
-  Future<User> updateUser(String email, User updatedUser) async {
+  Future<UserModel> updateUser(String email, UserModel updatedUser) async {
     try {
       final users = await _hiveService.getAllPerson();
       if (users.isEmpty) {
@@ -19,7 +19,7 @@ class ProfileRepoImp implements ProfileRepo {
         throw Exception('User not found');
       }
 
-      final userToUpdate = User(
+      final userToUpdate = UserModel(
         userName: updatedUser.userName,
         email: updatedUser.email,
         password: updatedUser.password,

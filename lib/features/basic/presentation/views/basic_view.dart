@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:egy_tour/core/utils/extensions/navigation.dart';
 import 'package:egy_tour/core/utils/theme/app_colors.dart';
 import 'package:egy_tour/core/utils/theme/font_styles.dart';
+import 'package:egy_tour/core/utils/widget/custom_snack_bar.dart';
 import 'package:egy_tour/features/auth/presentation/views/login_view.dart';
 import 'package:egy_tour/features/basic/presentation/manager/basic_cubit.dart';
 import 'package:egy_tour/features/basic/presentation/views/widgets/custom_basic_drawer.dart';
@@ -22,7 +23,7 @@ class BasicView extends StatefulWidget {
     required this.user,
   });
 
-  final User user;
+  final UserModel user;
 
   @override
   State<BasicView> createState() => _BasicViewState();
@@ -49,6 +50,9 @@ class _BasicViewState extends State<BasicView> {
         listener: (context, state) {
           if (state is SuccessLogoutState) {
             context.pushReplacement(LoginView());
+          } else if (state is FailureLogoutState) {
+            showCustomSnackBar(context, state.errMessage ?? "",
+                backgroundColor: AppColors.red);
           }
         },
         buildWhen: (prev, curr) {

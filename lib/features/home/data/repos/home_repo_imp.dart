@@ -1,15 +1,18 @@
 import 'package:dartz/dartz.dart';
 import 'package:egy_tour/core/utils/constants/constant_variables.dart';
 import 'package:egy_tour/core/utils/functions/hive_services.dart';
+import 'package:egy_tour/core/utils/functions/shared_pref_helper.dart';
 import 'package:egy_tour/features/home/data/repos/home_repo.dart';
 import 'package:egy_tour/features/auth/data/models/user_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeRepoImp implements HomeRepo {
-  Service service = Service<User>(boxName: userBox);
+  Service service = Service<UserModel>(boxName: userBox);
   @override
-  Future<Either<User, String>> getUserModel(String email) async {
+  Future<Either<UserModel, String>> getUserModel(String email) async {
     try {
-      List<User> usersList = await service.getAllPerson() as List<User>;
+      List<UserModel> usersList =
+          await service.getAllPerson() as List<UserModel>;
 
       bool isUserExist =
           usersList.where((model) => model.email == email).isNotEmpty;
@@ -22,5 +25,14 @@ class HomeRepoImp implements HomeRepo {
     }
   }
 
-  
+  @override
+  Future<Either<void, String>> logOut() async {
+    try {
+      await SharedPrefHelper.setString('');
+      await FirebaseAuth.instance.signOut();
+      return left(null);
+    } on FirebaseException catch (e) {
+      return right(e.toString());
+    }
+  }
 }
