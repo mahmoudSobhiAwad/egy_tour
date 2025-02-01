@@ -11,7 +11,7 @@ import 'package:egy_tour/features/governments/data/models/land_mark_model.dart';
 
 class FavouritesRepoImp implements FavouritesRepo {
   Service service = Service<UserModel>(boxName: userBox);
-
+  //gets all favorite places from the users favorites list
   @override
   Future<Either<List<LandmarkModel>, String>> makeFavList() async {
     List<LandmarkModel> faveList = [];
@@ -33,7 +33,7 @@ class FavouritesRepoImp implements FavouritesRepo {
       return Right(e.toString());
     }
   }
-
+  //removes a place from users favorite places and updates the user's document in the firestore database
   @override
   Future<Either<bool, String>> removeFromFavourite(
       UserModel user, int index) async {

@@ -29,6 +29,7 @@ class HomeRepoImp implements HomeRepo {
     }
   }
 
+  //gets all places from firestore database collection 'places'
   @override
   Future<List<LandmarkModel>> getPlaces() async {
     try {
@@ -39,6 +40,7 @@ class HomeRepoImp implements HomeRepo {
     }
   }
 
+  //adds a place to the favorites of a certain user and updates the user's document in the firestore database
   @override
   Future<Either<void, String>> addToFavorites(
       UserModel user, int index, List<LandmarkModel> places) async {
@@ -53,6 +55,7 @@ class HomeRepoImp implements HomeRepo {
     }
   }
 
+  //removes a place from the favorites of a certain user and updates the user's document in the firestore database
   @override
   Future<Either<void, String>> removeFromFavorites(
       UserModel user, int index, List<LandmarkModel> places) async {

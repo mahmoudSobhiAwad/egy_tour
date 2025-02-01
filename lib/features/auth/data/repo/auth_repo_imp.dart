@@ -14,9 +14,11 @@ class AuthRepoImp implements AuthRepo {
   @override
   Future<Either<UserModel, String>> login(String email, String password) async {
     try {
+      //login using firebase
       final credential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
       await SharedPrefHelper.setString(credential.user?.email ?? "");
+      //after login get user from firestore database collection with the corresponding id to display his data in the profile tab
       final user = await FirestoreServices.getUser(credential.user!.uid);
       return left(user);
     } on FirebaseAuthException catch (e) {
@@ -32,29 +34,15 @@ class AuthRepoImp implements AuthRepo {
   @override
   Future<Either<UserModel, String>> signUp(UserModel user) async {
     try {
+      //create a new user using firebase
       final credential = await auth.createUserWithEmailAndPassword(
         email: user.email,
         password: user.password,
       );
-
+      //adds the new user to the firestore database collection 'users'
       await FirestoreServices.addUser(user, credential.user!.uid);
       await service.addPerson(user);
       return left(user);
-
-      // List<UserModel> usersList =
-      //     await service.getAllPerson() as List<UserModel>;
-      // UserModel? loggedUser;
-      // for (var item in usersList) {
-      //   if (item.email == user.email && item.password == user.password) {
-      //     loggedUser = item;
-      //     break;
-      //   }
-      // }
-      // if (loggedUser == null) {
-      //   await service.addPerson(user);
-      //   return left(user);
-      // }
-      // return right("This email is created before !! ");
     } on FirebaseAuthException catch (e) {
       return right(e.toString());
     }

@@ -27,7 +27,7 @@ class UserModel {
     this.phoneNumber,
     this.favorites = const [],
   });
-
+  //converts userModel to Json when sending data to firestore
   Map<String, dynamic> toJson() {
     return {
       'id': FirebaseAuth.instance.currentUser!.uid,
@@ -38,7 +38,7 @@ class UserModel {
       'favorites': favorites,
     };
   }
-
+  //converts data from Json to userModel when getting data from firestore
   factory UserModel.fromJson(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? snapShotOptions,

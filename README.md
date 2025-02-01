@@ -80,6 +80,13 @@ all managers are made using bloc pattern
    * LoadPlaces - triggers loading the places
    * LoadMorePlaces - triggers loading more places
 
+
+### Firebase Implementation
+- implemented firebase authentication on the login and sign-up screens and when creating a new user the data is stored in a cloud firestore database
+- created a firestore collection for places that is used to load the places in the home page
+- the user's favorites are stored in the users collection and is used to load the favorite places in the favorites screen
+
+
 ### packages used:
 - [Country Code Picker](https://pub.dev/packages/country_code_picker)
 - [Build Runner](https://pub.dev/packages/build_runner)
@@ -88,7 +95,9 @@ all managers are made using bloc pattern
 - [Easy Localization](https://pub.dev/packages/easy_localization)
 - [dartz](https://pub.dev/packages/dartz)
 - [Flutter BLoC](https://pub.dev/packages/flutter_bloc)
-
+- [Firebase core](https://pub.dev/packages/firebase_core)
+- [Firebase Authentication](https://pub.dev/packages/firebase_auth)
+- [Cloud Firestore](https://pub.dev/packages/cloud_firestore)
 
 # [ui design](https://www.figma.com/design/sBPzQg1RO0wmHxRJJHVtpZ/Egy-Tour?node-id=0-1&p=f&t=bnztC7PVr0QlNAls-0)
 

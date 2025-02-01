@@ -5,15 +5,14 @@ import 'package:egy_tour/features/governments/data/models/land_mark_model.dart';
 class FirestoreServices {
   FirestoreServices._privateConstructor();
   static final firestore = FirebaseFirestore.instance;
-  //create user
+  //create user in firestore
   static Future<UserModel> addUser(UserModel user, String id) async {
     user.id = id;
-    //when adding a new user
     await firestore.collection('users').doc(id).set(user.toJson());
     return user;
   }
 
-  //fetch user
+  //get user
   static Future<UserModel> getUser(String id) async {
     final retrievedUser = await firestore.collection('users').doc(id).get();
     final user = UserModel.fromJson(retrievedUser, null);
@@ -25,6 +24,7 @@ class FirestoreServices {
     await firestore.collection('users').doc(user.id).update(user.toJson());
   }
 
+//get all places from the firestore collection
   static Future<List<LandmarkModel>> getPlaces() async {
     List<LandmarkModel> places = [];
     await firestore.collection('places').get().then((value) {
