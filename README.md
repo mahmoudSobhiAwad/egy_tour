@@ -84,6 +84,7 @@ all managers are made using bloc pattern
 ### Firebase Implementation
 - implemented firebase authentication on the login and sign-up screens and when creating a new user the data is stored in a cloud firestore database
 - created a firestore collection for places that is used to load the places in the home page
+- when adding or removing a place from favorites the data is updated in the firestore database in the user's document
 - the user's favorites are stored in the users collection and is used to load the favorite places in the favorites screen
 
 
