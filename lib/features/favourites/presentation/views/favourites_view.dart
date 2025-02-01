@@ -23,9 +23,10 @@ class FavouritesView extends StatelessWidget {
               itemBuilder: (context, index) {
                 return PlaceCard(
                   landmarkModel: cubit.favoriteList[index],
-                  toggle: (String id) {
-                    cubit.toggleBetweenFavourite(index,id);
+                  toggleIn: () {
+                    cubit.removeFavourite(index);
                   },
+                  toggleOut: () {},
                 );
               });
         },

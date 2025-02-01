@@ -27,4 +27,14 @@ class LandmarkModel {
       isFavorite: data?["isFavorite"],
     );
   }
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      "title": title,
+      "imageUrl": imageUrl,
+      "governName": governName,
+      "uniqueId": uniqueId,
+      "isFavorite": isFavorite,
+    };
+  }
 }

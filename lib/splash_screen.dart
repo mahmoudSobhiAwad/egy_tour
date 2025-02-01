@@ -1,8 +1,7 @@
-import 'package:egy_tour/core/utils/functions/shared_pref_helper.dart';
-import 'package:egy_tour/features/auth/data/models/user_model.dart';
-import 'package:egy_tour/features/auth/data/repo/auth_repo_imp.dart';
+import 'package:egy_tour/core/utils/functions/firestore_services.dart';
 import 'package:egy_tour/features/basic/presentation/views/basic_view.dart';
 import 'package:egy_tour/features/auth/presentation/views/login_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class CheckingLoginedUser extends StatefulWidget {
@@ -22,10 +21,11 @@ class _SplashCheckingState extends State<CheckingLoginedUser> {
   }
 
   Future<void> _checkUserLoggedIn() async {
-    final String value = await SharedPrefHelper.getString();
-    if (value.isNotEmpty) {
-      _initialView =
-          BasicView(user: UserModel(email: "mahmoud@gmail.com", password: "123456",phoneNumber: '000000',userName: "Mahmoud"));
+    // final String value = await SharedPrefHelper.getString();
+    if (FirebaseAuth.instance.currentUser != null) {
+      _initialView = BasicView(
+          user: await FirestoreServices.getUser(
+              FirebaseAuth.instance.currentUser!.uid));
     } else {
       _initialView = LoginView();
     }

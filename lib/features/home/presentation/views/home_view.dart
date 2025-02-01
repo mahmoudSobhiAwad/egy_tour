@@ -4,9 +4,10 @@ import 'package:egy_tour/core/utils/theme/font_styles.dart';
 import 'package:egy_tour/core/utils/widget/custom_places_card.dart';
 import 'package:egy_tour/core/utils/widget/custom_snack_bar.dart';
 import 'package:egy_tour/features/auth/data/models/user_model.dart';
+import 'package:egy_tour/features/governments/data/models/land_mark_model.dart';
+import 'package:egy_tour/features/home/data/repos/home_repo_imp.dart';
 import 'package:egy_tour/features/home/presentation/manager/home_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:egy_tour/core/utils/constants/governments_list.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeView extends StatefulWidget {
@@ -19,11 +20,24 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  List<LandmarkModel> places = [];
+  void getPlaces() async {
+    places = await HomeRepoImp().getPlaces();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    HomeRepoImp().getUserModel();
+    getPlaces();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          HomeBloc(user: widget.user)..add(LoadAllPlacesDataEvent()),
+          HomeBloc()..add(LoadAllPlacesDataEvent(places: places)),
       child: BlocListener<HomeBloc, HomeState>(
         listener: (context, state) {
           if (state is SuccessToggleState) {
@@ -68,19 +82,20 @@ class _HomeViewState extends State<HomeView> {
                   return curr is ToggleFavoritedState;
                 },
                 builder: (context, state) {
-                  var cubit = context.read<HomeBloc>();
-                  if (state is ComparingBetweenLoadingListState) {
-                    return CircularProgressIndicator();
-                  } else if (state is ComparingBetweenListFailureState) {
-                    return Column(
-                      children: [
-                        Text(
-                          "Error in Getting Date",
-                          style: AppTextStyles.bold24,
-                        ),
-                      ],
-                    );
-                  }
+                  final bloc = context.read<HomeBloc>();
+                  final reversed = places.reversed.toList();
+                  // if (state is ComparingBetweenLoadingListState) {
+                  //   return CircularProgressIndicator();
+                  // } else if (state is ComparingBetweenListFailureState) {
+                  //   return Column(
+                  //     children: [
+                  //       Text(
+                  //         "Error in Getting Date",
+                  //         style: AppTextStyles.bold24,
+                  //       ),
+                  //     ],
+                  //   );
+                  // }
                   return Expanded(
                     child: TabBarView(
                       children: [
@@ -89,13 +104,29 @@ class _HomeViewState extends State<HomeView> {
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   childAspectRatio: 145 / 190),
-                          itemCount: suggestedLandmarksList.length,
+                          itemCount: places.length,
                           itemBuilder: (context, index) {
                             return PlaceCard(
-                              landmarkModel: suggestedLandmarksList[index],
-                              toggle: (String id) {
-                                cubit.add(
-                                    ToggleItemInFavouriteEvent(itemId: id,isBasicDate: false));
+                              landmarkModel: places[index],
+                              toggleIn: () {
+                                bloc.add(
+                                  ToggleItemIntoFavouriteEvent(
+                                    user: widget.user,
+                                    index: index,
+                                    places: places,
+                                  ),
+                                );
+                                setState(() {});
+                              },
+                              toggleOut: () {
+                                bloc.add(
+                                  ToggleItemOutOfFavouriteEvent(
+                                    user: widget.user,
+                                    index: index,
+                                    places: places,
+                                  ),
+                                );
+                                setState(() {});
                               },
                             );
                           },
@@ -105,14 +136,24 @@ class _HomeViewState extends State<HomeView> {
                             SizedBox(
                               height: 250,
                               child: ListView.builder(
-                                itemCount: popLandmarksList.length,
+                                itemCount: reversed.length,
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
                                   return PlaceCard(
-                                    landmarkModel: popLandmarksList[index],
-                                    toggle: (String id) {
-                                      cubit.add(ToggleItemInFavouriteEvent(
-                                          itemId: id,));
+                                    landmarkModel: reversed[index],
+                                    toggleIn: () {
+                                      bloc.add(ToggleItemIntoFavouriteEvent(
+                                        user: widget.user,
+                                        index: index,
+                                        places: reversed,
+                                      ));
+                                    },
+                                    toggleOut: () {
+                                      bloc.add(ToggleItemOutOfFavouriteEvent(
+                                        user: widget.user,
+                                        index: index,
+                                        places: reversed,
+                                      ));
                                     },
                                   );
                                 },

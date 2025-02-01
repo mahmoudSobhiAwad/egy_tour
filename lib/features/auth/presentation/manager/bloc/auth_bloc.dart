@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:egy_tour/features/auth/data/models/user_model.dart';
 import 'package:egy_tour/features/auth/data/repo/auth_repo_imp.dart';
@@ -19,14 +20,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthRepoImp authRepoImp = AuthRepoImp();
 
   Future<void> _handleLoginRequested(
-    LoginRequested event,
-    Emitter<AuthState> emit,
-  ) async {
+      LoginRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
-    final result = await authRepoImp
-        .login(UserModel(email: event.email, password: event.password));
-    result.fold((user) {
-      emit(AuthAuthenticated(user: user));
+    final result = await authRepoImp.login(event.email, event.password);
+    final UserModel user1 = await FirebaseFirestore.instance
+        .collection('users')
+        .where("email", isEqualTo: event.email)
+        .get()
+        .then((value) {
+      return UserModel.fromJson(value.docs[0], null);
+    });
+
+    result.fold((user) async {
+      emit(AuthAuthenticated(user: user1));
     }, (error) {
       emit(AuthError(error));
     });

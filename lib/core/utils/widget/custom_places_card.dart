@@ -7,10 +7,12 @@ class PlaceCard extends StatelessWidget {
   const PlaceCard({
     super.key,
     required this.landmarkModel,
-    required this.toggle,
+    required this.toggleIn,
+    required this.toggleOut,
   });
   final LandmarkModel landmarkModel;
-  final void Function(String id) toggle;
+  final void Function() toggleIn;
+  final void Function() toggleOut;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +80,7 @@ class PlaceCard extends StatelessWidget {
                   Spacer(),
                   IconButton(
                     onPressed: () {
-                      toggle(landmarkModel.uniqueId);
+                      landmarkModel.isFavorite ? toggleOut() : toggleIn();
                     },
                     icon: landmarkModel.isFavorite
                         ? Icon(

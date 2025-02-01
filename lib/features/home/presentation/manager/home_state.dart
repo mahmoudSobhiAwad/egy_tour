@@ -7,7 +7,11 @@ final class HomeInitial extends HomeState {}
 
 final class ComparingBetweenLoadingListState extends HomeState {}
 
+final class LoadingListSuccessState extends HomeState {}
+
 final class ToggleFavoritedState extends HomeState {}
+
+final class ToggleUnFavoritedState extends HomeState {}
 
 final class ComparingBetweenListState extends HomeState {}
 

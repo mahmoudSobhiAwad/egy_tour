@@ -3,11 +3,31 @@ part of 'home_bloc.dart';
 @immutable
 sealed class HomeEvent {}
 
-class ToggleItemInFavouriteEvent extends HomeEvent {
-  final String itemId;
-  final bool isBasicDate;
+class ToggleItemIntoFavouriteEvent extends HomeEvent {
+  final UserModel user;
+  final int index;
+  List<LandmarkModel> places;
 
-  ToggleItemInFavouriteEvent({required this.itemId, this.isBasicDate = true});
+  ToggleItemIntoFavouriteEvent({
+    required this.user,
+    required this.places,
+    required this.index,
+  });
 }
 
-class LoadAllPlacesDataEvent extends HomeEvent {}
+class ToggleItemOutOfFavouriteEvent extends HomeEvent {
+  final UserModel user;
+  final int index;
+  List<LandmarkModel> places;
+
+  ToggleItemOutOfFavouriteEvent({
+    required this.user,
+    required this.places,
+    required this.index,
+  });
+}
+
+class LoadAllPlacesDataEvent extends HomeEvent {
+  List<LandmarkModel> places;
+  LoadAllPlacesDataEvent({required this.places});
+}

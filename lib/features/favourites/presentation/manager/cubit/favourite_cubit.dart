@@ -10,9 +10,9 @@ class FavouriteCubit extends Cubit<FavouriteState> {
   final UserModel user;
   FavouriteCubit({required this.user}) : super(FavouriteInitial());
   List<LandmarkModel> favoriteList = [];
-  
+
   Future<void> loadFavList() async {
-    final result = await FavouritesRepoImp().makeFavList(user.favorites);
+    final result = await FavouritesRepoImp().makeFavList();
     result.fold((list) {
       favoriteList.addAll(list);
       emit(SuccessGetFavouriteList());
@@ -21,15 +21,9 @@ class FavouriteCubit extends Cubit<FavouriteState> {
     });
   }
 
-  Future<void> toggleBetweenFavourite(int index, String id) async {
-    favoriteList[index].isFavorite = !favoriteList[index].isFavorite;
-    if (favoriteList[index].isFavorite) {
-      user.favorites.add(id);
-    } else {
-      user.favorites.remove(id);
-    }
+  Future<void> removeFavourite(int index) async {
+    final result = await FavouritesRepoImp().removeFromFavourite(user, index);
 
-    final result = await FavouritesRepoImp().toggleFavourite(user);
     result.fold((status) {
       emit(ToggleSuccessState());
     }, (error) {

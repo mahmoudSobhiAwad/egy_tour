@@ -6,7 +6,6 @@ import 'package:egy_tour/features/auth/data/models/user_model.dart';
 import 'package:egy_tour/features/basic/presentation/manager/basic_cubit.dart';
 import 'package:egy_tour/firebase_options.dart';
 import 'package:egy_tour/splash_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +18,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
 
   await EasyLocalization.ensureInitialized();
   Hive.registerAdapter(UserAdapter());
@@ -32,6 +31,7 @@ void main() async {
         ),
         child: MyApp()),
   );
+
 }
 
 class MyApp extends StatelessWidget {

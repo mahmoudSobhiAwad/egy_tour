@@ -1,29 +1,32 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:egy_tour/core/utils/constants/constant_variables.dart';
-import 'package:egy_tour/core/utils/constants/governments_list.dart';
+import 'package:egy_tour/core/utils/functions/firestore_services.dart';
 import 'package:egy_tour/core/utils/functions/hive_services.dart';
 import 'package:egy_tour/features/auth/data/models/user_model.dart';
+import 'package:egy_tour/features/auth/data/repo/auth_repo_imp.dart';
 import 'package:egy_tour/features/favourites/data/repos/favourites_repo.dart';
 
-import '../../../governments/data/models/land_mark_model.dart';
+import 'package:egy_tour/features/governments/data/models/land_mark_model.dart';
 
 class FavouritesRepoImp implements FavouritesRepo {
   Service service = Service<UserModel>(boxName: userBox);
 
   @override
-  Future<Either<List<LandmarkModel>, String>> makeFavList(
-      List<String> ids) async {
+  Future<Either<List<LandmarkModel>, String>> makeFavList() async {
     List<LandmarkModel> faveList = [];
     try {
-      for (var gov in governmentsList) {
-        for (var landmark in gov.landMarkList) {
-          if (ids.contains(landmark.uniqueId)) {
-            landmark.isFavorite = true;
-            faveList.add(landmark);
-          } else {
-            continue;
-          }
-        }
+      final user = await FirestoreServices.getUser(auth.currentUser!.uid);
+      for (var favorite in user.favorites) {
+        await FirestoreServices.firestore
+            .collection('places')
+            .doc(favorite)
+            .get()
+            .then((value) {
+          final place = LandmarkModel.fromFirestore(value, null);
+          faveList.add(place);
+          place.isFavorite = true;
+        });
       }
       return Left(faveList);
     } on Exception catch (e) {
@@ -32,14 +35,14 @@ class FavouritesRepoImp implements FavouritesRepo {
   }
 
   @override
-  Future<Either<bool, String>> toggleFavourite(UserModel user) async {
-    try {
-      final List<UserModel> users =await service.getAllPerson() as List<UserModel>;
-      int index = users.indexWhere((item) => item.email == user.email);
-      await service.updateFavList(index, user);
+  Future<Either<bool, String>> removeFromFavourite(
+      UserModel user, int index) async {
+    user.favorites.removeAt(index);
 
-      return left(true);
-    } catch (e) {
+    try {
+      await FirestoreServices.updateUser(user);
+      return left(false);
+    } on FirebaseException catch (e) {
       return right(e.toString());
     }
   }

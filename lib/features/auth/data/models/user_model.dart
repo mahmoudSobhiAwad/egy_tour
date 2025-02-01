@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:egy_tour/features/governments/data/models/land_mark_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hive/hive.dart';
 part 'user_model.g.dart';
@@ -6,7 +7,7 @@ part 'user_model.g.dart';
 @HiveType(typeId: 1)
 class UserModel {
   @HiveField(0)
-  final String? id;
+  String? id;
   @HiveField(1)
   final String? userName;
   @HiveField(2)
@@ -29,7 +30,7 @@ class UserModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'id':FirebaseAuth.instance.currentUser!.uid,
+      'id': FirebaseAuth.instance.currentUser!.uid,
       'userName': userName,
       'email': email,
       'password': password,
@@ -42,6 +43,10 @@ class UserModel {
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? snapShotOptions,
   ) {
+    List<String> fav = [];
+    for (var element in snapshot.data()!['favorites']) {
+      fav.add(element);
+    }
     final data = snapshot.data();
     return UserModel(
       id: data?['id'],
@@ -49,7 +54,7 @@ class UserModel {
       userName: data?['userName'],
       password: data?['password'],
       phoneNumber: data?['phoneNumber'],
-      favorites: data?['favorites'],
+      favorites: fav,
     );
   }
 }

@@ -11,6 +11,7 @@ import 'package:egy_tour/features/auth/presentation/views/widgets/have_account_l
 import 'package:egy_tour/features/auth/presentation/views/widgets/login_push_buttong.dart';
 import 'package:egy_tour/core/utils/widget/title_with_changing_lang.dart';
 import 'package:egy_tour/features/auth/presentation/views/sign_up_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,6 +32,7 @@ late GlobalKey<FormState> _formKey;
 bool isObeseureText = false;
 
 class _LoginBodyState extends State<LoginBody> {
+  final auth = FirebaseAuth.instance;
   @override
   void initState() {
     _formKey = GlobalKey<FormState>();
@@ -131,9 +133,12 @@ class _LoginBodyState extends State<LoginBody> {
                         _focusNode1.unfocus();
                         _focusNode2.unfocus();
                         if (_formKey.currentState!.validate()) {
-                          bloc.add(LoginRequested(
+                          bloc.add(
+                            LoginRequested(
                               email: emailController.text,
-                              password: passwordController.text));
+                              password: passwordController.text,
+                            ),
+                          );
                         }
                       },
                       title: 'login.login_button'.tr(),
