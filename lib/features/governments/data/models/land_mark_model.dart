@@ -6,13 +6,19 @@ class LandmarkModel {
   final String governName;
   final String uniqueId;
   bool isFavorite;
+  // Add Latitude and Longitude properties
+  final double latitude;
+  final double longitude;
 
-  LandmarkModel(
-      {required this.title,
-      required this.imageUrl,
-      required this.governName,
-      required this.uniqueId,
-      required this.isFavorite});
+  LandmarkModel({
+    required this.title,
+    required this.imageUrl,
+    required this.governName,
+    required this.uniqueId,
+    required this.isFavorite,
+    required this.latitude,
+    required this.longitude,
+  });
 
   factory LandmarkModel.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -20,11 +26,13 @@ class LandmarkModel {
   ) {
     final data = snapshot.data();
     return LandmarkModel(
-      title: data?["title"],
-      imageUrl: data?["imageUrl"],
-      governName: data?["governName"],
-      uniqueId: data?["uniqueId"],
-      isFavorite: data?["isFavorite"],
+      title: data?["title"] ?? '',
+      imageUrl: data?["imageUrl"] ?? '',
+      governName: data?["governName"] ?? '',
+      uniqueId: data?["uniqueId"] ?? '',
+      isFavorite: data?["isFavorite"] ?? false,
+      latitude: (data?["latitude"] ?? 0.0).toDouble(),
+      longitude: (data?["longitude"] ?? 0.0).toDouble(),
     );
   }
 
@@ -35,6 +43,8 @@ class LandmarkModel {
       "governName": governName,
       "uniqueId": uniqueId,
       "isFavorite": isFavorite,
+      "latitude": latitude,
+      "longitude": longitude,
     };
   }
 }
