@@ -20,7 +20,7 @@ class _LocationViewState extends State<LocationView> {
   Widget build(BuildContext context) {
     CameraPosition cairo = CameraPosition(
       target: LatLng(widget.latitude, widget.longitude),
-      zoom: 12,
+      zoom: 15,
     );
     return Scaffold(
       appBar: AppBar(

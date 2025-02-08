@@ -17,16 +17,16 @@ class FavouritesView extends StatelessWidget {
           return GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 150 / 190,
+                childAspectRatio: 140 / 211,
               ),
               itemCount: cubit.favoriteList.length,
               itemBuilder: (context, index) {
                 return PlaceCard(
                   landmarkModel: cubit.favoriteList[index],
-                  toggleIn: () {
+                  toggleIn: () {},
+                  toggleOut: () {
                     cubit.removeFavourite(index);
                   },
-                  toggleOut: () {},
                 );
               });
         },

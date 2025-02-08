@@ -105,7 +105,7 @@ class _HomeViewState extends State<HomeView> {
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
-                                  childAspectRatio: 150 / 211),
+                                  childAspectRatio: 140 / 211),
                           itemCount: places.length,
                           itemBuilder: (context, index) {
                             return PlaceCard(
@@ -136,7 +136,7 @@ class _HomeViewState extends State<HomeView> {
                         Column(
                           children: [
                             SizedBox(
-                              height: 250,
+                              height: 285,
                               child: ListView.builder(
                                 itemCount: reversed.length,
                                 scrollDirection: Axis.horizontal,
