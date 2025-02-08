@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:egy_tour/core/utils/functions/firestore_services.dart';
 import 'package:egy_tour/features/auth/data/models/user_model.dart';

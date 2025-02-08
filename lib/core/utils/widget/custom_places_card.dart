@@ -95,6 +95,10 @@ class PlaceCard extends StatelessWidget {
                 ],
               ),
             ),
+            SizedBox(
+              height: 5,
+            ),
+            
           ],
         ),
       ),

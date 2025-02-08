@@ -1,7 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:egy_tour/features/auth/data/models/user_model.dart';
 import 'package:egy_tour/features/home/data/repos/home_repo_imp.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'basic_state.dart';

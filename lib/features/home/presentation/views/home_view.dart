@@ -21,13 +21,12 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   List<LandmarkModel> places = [];
- void getPlaces() async {
-  places = await HomeRepoImp().getPlaces();
-  if (mounted) {
-    setState(() {});
+  void getPlaces() async {
+    places = await HomeRepoImp().getPlaces();
+    if (mounted) {
+      setState(() {});
+    }
   }
-}
-
 
   @override
   void initState() {
@@ -106,7 +105,7 @@ class _HomeViewState extends State<HomeView> {
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
-                                  childAspectRatio: 145 / 190),
+                                  childAspectRatio: 150 / 211),
                           itemCount: places.length,
                           itemBuilder: (context, index) {
                             return PlaceCard(
