@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:egy_tour/core/utils/extensions/media_query.dart';
 import 'package:egy_tour/core/utils/extensions/navigation.dart';
 import 'package:egy_tour/core/utils/theme/app_colors.dart';
@@ -11,8 +13,10 @@ class CustomBasicDrawer extends StatelessWidget {
     super.key,
     required this.userName,
     required this.logout,
+    this.profileImage,
   });
   final String userName;
+  final String? profileImage;
   final void Function(bool value) logout;
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,10 @@ class CustomBasicDrawer extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: context.screenWidth * 0.15,
-              backgroundImage: AssetImage('assets/images/profile.jpg'),
+              backgroundImage: profileImage != null
+                  ? FileImage(File(profileImage!))
+                  : const AssetImage('assets/images/profile.jpg')
+                      as ImageProvider,
             ),
             Text(
               userName,

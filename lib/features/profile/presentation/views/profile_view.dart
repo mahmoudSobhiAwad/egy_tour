@@ -129,6 +129,7 @@ class _ProfileContentState extends State<ProfileScreen> {
                         ValueListenableBuilder<File?>(
                           valueListenable: _profileImage,
                           builder: (context, image, _) {
+                            log("Image Path: ${image?.path}");
                             return CircleAvatar(
                               radius: context.screenWidth * 0.15,
                               backgroundImage: image != null && image.existsSync()

@@ -21,10 +21,13 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   List<LandmarkModel> places = [];
-  void getPlaces() async {
-    places = await HomeRepoImp().getPlaces();
+ void getPlaces() async {
+  places = await HomeRepoImp().getPlaces();
+  if (mounted) {
     setState(() {});
   }
+}
+
 
   @override
   void initState() {
