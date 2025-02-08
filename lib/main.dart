@@ -4,6 +4,8 @@ import 'package:egy_tour/core/utils/functions/bloc_observer.dart';
 import 'package:egy_tour/core/utils/theme/app_colors.dart';
 import 'package:egy_tour/features/auth/data/models/user_model.dart';
 import 'package:egy_tour/features/basic/presentation/manager/basic_cubit.dart';
+import 'package:egy_tour/features/profile/data/repos/profile_repo_imp.dart';
+import 'package:egy_tour/features/profile/presentation/manager/profile_bloc.dart';
 import 'package:egy_tour/firebase_options.dart';
 import 'package:egy_tour/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,14 +26,17 @@ void main() async {
   Hive.registerAdapter(UserAdapter());
   runApp(
     EasyLocalization(
-        supportedLocales: [Locale('en'), Locale('ar')],
-        path: 'assets/lang',
-        fallbackLocale: Locale(
-          'en',
-        ),
-        child: MyApp()),
+      supportedLocales: [Locale('en'), Locale('ar')],
+      path: 'assets/lang',
+      fallbackLocale: Locale('en'),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => ProfileBloc(ProfileRepoImp())),
+        ],
+        child: MyApp(),
+      ),
+    ),
   );
-
 }
 
 class MyApp extends StatelessWidget {

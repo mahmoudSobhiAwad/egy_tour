@@ -22,7 +22,7 @@ class LoginView extends StatelessWidget {
             showCustomSnackBar(context, state.message,
                 backgroundColor: AppColors.red);
           } else if (state is AuthAuthenticated) {
-            context.pushReplacement(BasicView(user: state.user));
+            context.pushReplacement(BasicView());
           }
         },
         child: Scaffold(

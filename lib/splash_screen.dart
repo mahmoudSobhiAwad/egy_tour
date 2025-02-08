@@ -24,9 +24,7 @@ class _SplashCheckingState extends State<CheckingLoginedUser> {
     //checks if the user is logged in using firebase authentication if a user is logged in navigates to the home screen
     // if not navigates to the login screen
     if (FirebaseAuth.instance.currentUser != null) {
-      _initialView = BasicView(
-          user: await FirestoreServices.getUser(
-              FirebaseAuth.instance.currentUser!.uid));
+      _initialView = BasicView();
     } else {
       _initialView = LoginView();
     }

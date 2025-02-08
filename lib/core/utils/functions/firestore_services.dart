@@ -1,10 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:egy_tour/features/auth/data/models/user_model.dart';
 import 'package:egy_tour/features/governments/data/models/land_mark_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class FirestoreServices {
   FirestoreServices._privateConstructor();
   static final firestore = FirebaseFirestore.instance;
+  static final auth = FirebaseAuth.instance;
+
+
+  static Future<String> getUserId() async {
+    return auth.currentUser!.uid;
+  }
   //create user in firestore
   static Future<UserModel> addUser(UserModel user, String id) async {
     user.id = id;
@@ -20,8 +27,15 @@ class FirestoreServices {
   }
 
   //update user
-  static Future<void> updateUser(UserModel user) async {
-    await firestore.collection('users').doc(user.id).update(user.toJson());
+   static Future<void> updateUser(UserModel user) async {
+    if (user.id == null) {
+      throw Exception("User ID is null! Cannot update.");
+    }
+
+    await firestore.collection('users').doc(user.id).set(
+          user.toJson(),
+          SetOptions(merge: true), // Merges data instead of failing if missing
+        );
   }
 
 //get all places from the firestore collection

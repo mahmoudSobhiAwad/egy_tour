@@ -43,6 +43,8 @@ dependencies:
   hive_flutter: ^1.1.0
   hive_generator: ^2.0.1
   shared_preferences: ^2.3.5
+  image_picker: ^1.0.7
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_lints: ^5.0.0

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:egy_tour/features/auth/data/models/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:egy_tour/features/profile/data/repos/profile_repo.dart';
@@ -17,13 +19,21 @@ class ProfileBloc extends Bloc<UpdateUserEvent, ProfileStates> {
     emit(ProfileUpdateLoading());
     try {
       final updatedUser = UserModel(
+        id: event.id,
         userName: event.name,
         email: event.email,
         password: event.password,
         phoneNumber: event.phone,
+        profileImage: event.profileImage,
       );
 
-      final result = await profileRepo.updateUser(event.email, updatedUser);
+         if (updatedUser.id == null) {
+        throw Exception("User ID is null! Cannot update.");
+      }
+
+      log('Updating user with ID: ${updatedUser.id}'); // Debug log
+      
+      final result = await profileRepo.updateUser(updatedUser);
       emit(ProfileUpdateSuccess('Profile updated successfully', result));
     } catch (e) {
       emit(ProfileUpdateFailure(e.toString()));

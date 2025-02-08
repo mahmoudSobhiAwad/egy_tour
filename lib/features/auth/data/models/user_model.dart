@@ -17,6 +17,7 @@ class UserModel {
   final String? phoneNumber;
   @HiveField(5)
   List<String> favorites;
+  final String? profileImage; // Add this
 
   UserModel({
     this.id,
@@ -25,6 +26,7 @@ class UserModel {
     required this.password,
     this.phoneNumber,
     this.favorites = const [],
+    this.profileImage, 
   });
   //converts userModel to Json when sending data to firestore
   Map<String, dynamic> toJson() {
@@ -35,6 +37,7 @@ class UserModel {
       'password': password,
       'phoneNumber': phoneNumber,
       'favorites': favorites,
+      'profileImage': profileImage
     };
   }
   //converts data from Json to userModel when getting data from firestore
@@ -53,6 +56,7 @@ class UserModel {
       userName: data?['userName'],
       password: data?['password'],
       phoneNumber: data?['phoneNumber'],
+      profileImage: data?['profileImage'],
       favorites: fav,
     );
   }
