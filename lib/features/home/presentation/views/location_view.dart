@@ -14,8 +14,21 @@ class LocationView extends StatefulWidget {
 
 class _LocationViewState extends State<LocationView> {
   List<Marker> markers = <Marker>[];
+
+  @override
+  void initState() {
+    super.initState();
+    markers.add(
+      Marker(
+          markerId: MarkerId('location'),
+        position: LatLng(widget.latitude, widget.longitude),
+        infoWindow: InfoWindow(title: 'Location')
+      )
+    );
+  }
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
+
   @override
   Widget build(BuildContext context) {
     CameraPosition cairo = CameraPosition(
