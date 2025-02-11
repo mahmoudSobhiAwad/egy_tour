@@ -1,31 +1,21 @@
+import 'package:egy_tour/core/utils/extensions/navigation.dart';
+import 'package:egy_tour/core/utils/theme/app_colors.dart';
 import 'package:egy_tour/core/utils/theme/font_styles.dart';
-import 'package:egy_tour/features/home/data/models/place_model.dart';
+import 'package:egy_tour/features/governments/data/models/land_mark_model.dart';
+import 'package:egy_tour/features/home/presentation/views/location_view.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/constant_variables.dart';
-import '../theme/app_colors.dart';
+class PlaceCard extends StatelessWidget {
+  const PlaceCard({
+    super.key,
+    required this.landmarkModel,
+    required this.toggleIn,
+    required this.toggleOut,
+  });
+  final LandmarkModel landmarkModel;
+  final void Function() toggleIn;
+  final void Function() toggleOut;
 
-class PlaceCard extends StatefulWidget {
-  final String name;
-
-  final String location;
-
-  final String imageUrl;
-
-  bool isFavorite;
-
-  PlaceCard(
-      {super.key,
-      required this.name,
-      required this.location,
-      required this.imageUrl,
-      required this.isFavorite});
-
-  @override
-  State<PlaceCard> createState() => _PlaceCardState();
-}
-
-class _PlaceCardState extends State<PlaceCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -56,7 +46,7 @@ class _PlaceCardState extends State<PlaceCard> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   child: Image.asset(
-                    widget.imageUrl,
+                    landmarkModel.imageUrl,
                     width: 160,
                     height: 126,
                     fit: BoxFit.fitWidth,
@@ -64,18 +54,16 @@ class _PlaceCardState extends State<PlaceCard> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0),
+            FittedBox(
               child: Text(
-                widget.name,
+                textAlign: TextAlign.center,
+                landmarkModel.title,
                 style: AppTextStyles.regular16,
               ),
             ),
-            SizedBox(
-              height: 5,
-            ),
+
             Padding(
-              padding: const EdgeInsets.only(left: 10.0),
+              padding: const EdgeInsets.only(left: 5.0),
               child: Row(
                 children: [
                   Icon(
@@ -83,7 +71,7 @@ class _PlaceCardState extends State<PlaceCard> {
                     color: AppColors.darkGrey,
                   ),
                   Text(
-                    widget.location,
+                    landmarkModel.governName,
                     style: TextStyle(
                         color: AppColors.darkGrey,
                         fontWeight: FontWeight.w400,
@@ -92,25 +80,9 @@ class _PlaceCardState extends State<PlaceCard> {
                   Spacer(),
                   IconButton(
                     onPressed: () {
-                      widget.isFavorite = !widget.isFavorite;
-                      setState(() {});
-                      widget.isFavorite
-                          ? favorites.remove(
-                              Place(
-                                  name: widget.name,
-                                  location: widget.location,
-                                  imageUrl: widget.imageUrl,
-                                  isFavorite: widget.isFavorite),
-                            )
-                          : favorites.add(
-                              Place(
-                                  name: widget.name,
-                                  location: widget.location,
-                                  imageUrl: widget.imageUrl,
-                                  isFavorite: widget.isFavorite),
-                            );
+                      landmarkModel.isFavorite ? toggleOut() : toggleIn();
                     },
-                    icon: widget.isFavorite
+                    icon: landmarkModel.isFavorite
                         ? Icon(
                             Icons.favorite,
                             color: Colors.red,
@@ -123,6 +95,19 @@ class _PlaceCardState extends State<PlaceCard> {
                 ],
               ),
             ),
+            SizedBox(
+              height: 5,
+            ),
+            TextButton(
+                onPressed: () {
+                  context.push(LocationView(
+                      latitude: landmarkModel.latitude,
+                      longitude: landmarkModel.longitude));
+                },
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(AppColors.blueDark),
+                ),
+                child: Text('Location'))
           ],
         ),
       ),

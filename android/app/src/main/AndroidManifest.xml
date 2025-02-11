@@ -1,8 +1,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+<uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.CAMERA"/>
+
+
     <application
         android:label="egy_tour"
         android:name="${applicationName}"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
+        <provider
+        android:name="androidx.core.content.FileProvider"
+        android:authorities="${applicationId}.fileprovider"
+        android:grantUriPermissions="true"
+        android:exported="false">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/filepaths" />
+        </provider>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -30,6 +46,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDxOjWLXJGWBo0amGqp1aBaYTKmJGEkUx4"/>
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

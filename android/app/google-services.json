@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "842181473067",
+    "project_id": "sprints-firebase",
+    "storage_bucket": "sprints-firebase.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842181473067:android:7ea989d6325a7cc5c38b6e",
+        "android_client_info": {
+          "package_name": "com.example.egy_tour"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6TCxNWfdrNuQj2hAgKIlAQ9ztZQB9gqI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842181473067:android:52aa73306a4bfc28c38b6e",
+        "android_client_info": {
+          "package_name": "com.example.sprints_firebase_tasks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6TCxNWfdrNuQj2hAgKIlAQ9ztZQB9gqI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
